@@ -101,11 +101,17 @@ public class WeatherData implements IWeatherData {
     @Override
     public int getCurrentTemperature() {
         return (int)Double.parseDouble(currently.get().getByKey("temperature"));
+
     }
 
     @Override
     public List<Integer> get24HourTemperature() {
-        return null;
+
+        List<Integer> temp24h = new ArrayList<Integer>();
+        for(int i=0; i<24; i++){
+          temp24h.add((int)Double.parseDouble(hourly.getHour(i).getByKey("temperature")));
+        }
+        return temp24h;
     }
 
     @Override
@@ -117,6 +123,7 @@ public class WeatherData implements IWeatherData {
         }
 
         return res;
+
     }
 
     @Override
@@ -126,7 +133,12 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Double> get24HourChanceOfRain() {
-        return null;
+
+        List<Double> rain24h = new ArrayList<Double>();
+        for(int i=0; i<24; i++){
+            rain24h.add(Double.parseDouble(hourly.getHour(i).getByKey("precipProbability")));
+        }
+        return rain24h;
     }
 
     @Override
@@ -145,10 +157,6 @@ public class WeatherData implements IWeatherData {
         return Double.parseDouble(currently.get().getByKey("windSpeed"));
     }
 
-    @Override
-    public List<Double> get24HourWindSpeed() {
-        return null;
-    }
 
     @Override
     public List<Double> getDailyWindSpeed() {
@@ -161,11 +169,64 @@ public class WeatherData implements IWeatherData {
         return res;
     }
 
+
+
+    @Override
+    public List<Double> get24HourWindSpeed() {
+        List<Double> wind24h = new ArrayList<Double>();
+        for(int i=0; i<24; i++){
+            wind24h.add(Double.parseDouble(hourly.getHour(i).getByKey("windSpeed")));
+        }
+        return wind24h;
+    }
+
+   
+
     @Override
     public WindDirection getCurrentWindDirection() {
+        return computeWindDirection(Double.parseDouble(currently.get().getByKey("windDirection"))) ;
+    }
 
-        Double angle = Double.parseDouble(currently.get().getByKey("windDirection"));
+    @Override
+    public List<WindDirection> get24HourWindDirection() {
+        List<WindDirection> windDirection24h = new ArrayList<WindDirection>();
+        for(int i=0; i<24; i++){
+            windDirection24h.add(computeWindDirection(Double.parseDouble(hourly.getHour(i).getByKey("windDirection"))));
+        }
+        return windDirection24h;
+    }
 
+    @Override
+    public double getCurrentHumidity() {
+        return Double.parseDouble(currently.get().getByKey("humidity"));
+    }
+
+    @Override
+    public List<Double> get24HourHumidity() {
+        List<Double> humidity24h = new ArrayList<Double>();
+        for(int i=0; i<24; i++){
+            humidity24h.add(Double.parseDouble(hourly.getHour(i).getByKey("humidity")));
+        }
+        return humidity24h;
+    }
+
+
+    @Override
+    public String getCurrentSummary() {
+        return currently.get().getByKey("summary");
+    }
+
+    @Override
+    public List<String> get24HourSummary() {
+        List<String> summary24h = new ArrayList<String>();
+        for(int i=0; i<24; i++){
+            summary24h.add(hourly.getHour(i).getByKey("summary"));
+        }
+        return summary24h;
+    }
+
+
+    private WindDirection computeWindDirection(double angle) {
         if ((angle < 22.5 && angle >= 0) || (angle >= 337.5 && angle < 360))
             return WindDirection.EAST;
 
@@ -191,16 +252,11 @@ public class WeatherData implements IWeatherData {
     }
 
     @Override
-    public List<WindDirection> get24HourWindDirection() {
-        return null;
-    }
-
-    @Override
-    public List<Double> getDailyWindDirection() {
-        List<Double> res = new ArrayList<>();
+    public List<WindDirection> getDailyWindDirection() {
+        List<WindDirection> res = new ArrayList<WindDirection>();
 
         for (int i=1; i <= 10; i++){
-            res.add(Double.parseDouble(daily.getDay(i).getByKey("windDirection")));
+            res.add(computeWindDirection(Double.parseDouble(daily.getDay(i).getByKey("windDirection"))));
         }
 
         return res;
@@ -209,11 +265,6 @@ public class WeatherData implements IWeatherData {
     @Override
     public double getCurrentHumidity() {
         return Double.parseDouble(currently.get().getByKey("humidity"));
-    }
-
-    @Override
-    public List<Double> get24HourHumidity() {
-        return null;
     }
 
     @Override
@@ -251,7 +302,5 @@ public class WeatherData implements IWeatherData {
     public static void main(String[] args) {
         WeatherData obj = new WeatherData();
 
-        System.out.println(obj.getCurrentTemperature());
-        System.out.println(obj.getCurrentWindSpeed());
     }
 }
