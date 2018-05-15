@@ -15,7 +15,9 @@ public interface IWeatherData {
     /*
     Getter methods
      */
-    WeatherType getWeatherType();
+    WeatherType getCurrentWeatherType();
+    List<WeatherType> get24HourWeatherType();
+    List<WeatherType> getDailyWeatherType();
 
     int getCurrentTemperature();
     List<Integer> get24HourTemperature();
