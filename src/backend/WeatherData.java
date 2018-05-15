@@ -15,6 +15,8 @@ public class WeatherData implements IWeatherData {
     private static FIOMinutely minutely;
     private static FIOHourly hourly;
     private static FIODaily daily;
+    private static FIOAlerts alerts;
+    private static String address;
 
     public WeatherData() {
 
@@ -24,29 +26,12 @@ public class WeatherData implements IWeatherData {
         //sets the language to English
         fio.setLang(ForecastIO.LANG_ENGLISH);
 
-
-        /* !!!!!!!!!!!!!
-          sets the latitude and longitude - not optional
-          it will fail to get forecast if it is not set
-          this method should be called after the options were set
-        */
-        setLocation("52.2053", "0.1218");
-
-        currently = new FIOCurrently(fio);
-        minutely = new FIOMinutely(fio);
-        hourly = new FIOHourly(fio);
-        daily = new FIODaily(fio);
-
-
-        /* how to print all the weather data fields
-        String[] fields = currently.get().getFieldsArray();
-        for (String f : fields){ System.out.println(f); }
-        */
+        setLocation("Cambridge"); // by default
     }
 
 
     private void updateWeather(){
-        setLocation("52.2053", "0.1218");
+        setLocation(address);
         currently = new FIOCurrently(fio);
         minutely = new FIOMinutely(fio);
         hourly = new FIOHourly(fio);
@@ -55,8 +40,18 @@ public class WeatherData implements IWeatherData {
     }
 
     @Override
-    public void setLocation(String Latitude, String Longitude) {
-        fio.getForecast(Latitude, Longitude);
+    public void setLocation(String addr) {
+
+        address = addr;
+
+        String[] latLng = Geocoder.getCoords(address);
+        try {
+            fio.getForecast(latLng[0], latLng[1]);
+        }
+        catch (NullPointerException e){
+            System.out.println("Couldn't process your request, here's the weather in Cambridge instead.");
+            fio.getForecast("52.2053", "0.1218");
+        }
     }
 
     @Override
@@ -109,7 +104,7 @@ public class WeatherData implements IWeatherData {
 
         List<WeatherType> res = new ArrayList<>();
 
-        for (int i=1; i <= 10; i++){
+        for (int i=1; i <= 7; i++){
             res.add(StringToWeatherType(daily.getDay(i).getByKey("icon")));
         }
 
@@ -142,7 +137,7 @@ public class WeatherData implements IWeatherData {
 
         List<Integer> res = new ArrayList<>();
 
-        for (int i=1; i <= 10; i++){
+        for (int i=1; i <= 7; i++){
             res.add(Integer.parseInt(daily.getDay(i).getByKey("temperature")));
         }
 
@@ -175,7 +170,7 @@ public class WeatherData implements IWeatherData {
 
         List<Double> res = new ArrayList<>();
 
-        for (int i=1; i <= 10; i++){
+        for (int i=1; i <= 7; i++){
             res.add(Double.parseDouble(daily.getDay(i).getByKey("precipProbability")));
         }
 
@@ -196,7 +191,7 @@ public class WeatherData implements IWeatherData {
 
         List<Double> res = new ArrayList<>();
 
-        for (int i=1; i <= 10; i++){
+        for (int i=1; i <= 7; i++){
             res.add(Double.parseDouble(daily.getDay(i).getByKey("windSpeed")));
         }
 
@@ -280,7 +275,7 @@ public class WeatherData implements IWeatherData {
 
         List<String> res = new ArrayList<>();
 
-        for (int i=1; i <= 10; i++){
+        for (int i=1; i <= 7; i++){
             res.add(daily.getDay(i).getByKey("summary"));
         }
 
@@ -319,7 +314,7 @@ public class WeatherData implements IWeatherData {
 
         List<WindDirection> res = new ArrayList<WindDirection>();
 
-        for (int i=1; i <= 10; i++){
+        for (int i=1; i <= 7; i++){
             res.add(computeWindDirection(Double.parseDouble(daily.getDay(i).getByKey("windDirection"))));
         }
 
@@ -333,18 +328,35 @@ public class WeatherData implements IWeatherData {
 
         List<Double> res = new ArrayList<>();
 
-        for (int i=1; i <= 10; i++){
+        for (int i=1; i <= 7; i++){
             res.add(Double.parseDouble(daily.getDay(i).getByKey("humidity")));
         }
 
         return res;
     }
 
+    @Override
+    public void getAlerts(){
+
+        alerts = new FIOAlerts(fio);
+        //Check if there are alerts
+        if(alerts.NumberOfAlerts() <= 0){
+            System.out.println("No alerts for this location.");
+        }
+        //if there are alerts, print them.
+        else {
+            System.out.println("Alerts");
+            for(int i=0; i<alerts.NumberOfAlerts(); i++)
+                System.out.println(alerts.getAlert(i));
+        }
+    }
 
 
     public static void main(String[] args) {
         WeatherData obj = new WeatherData();
-        System.out.println(obj.getDailySummary());
 
+        System.out.println(obj.getDailySummary());
+        obj.setLocation("Bucharest Romania");
+        System.out.println(obj.getDailySummary());
     }
 }

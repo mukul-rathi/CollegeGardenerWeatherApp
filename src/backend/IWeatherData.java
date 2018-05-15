@@ -10,7 +10,7 @@ public interface IWeatherData {
     /*
     Set internal state (this is done in settings of app)
      */
-    void setLocation(String Latitude, String Longitude); //using String for now, until suitable input format identified
+    void setLocation(String address); //using String for now, until suitable input format identified
     void setScale(boolean Imperial); //true if Celsius, false if Fahrenheit
     /*
     Getter methods
@@ -42,5 +42,7 @@ public interface IWeatherData {
     String getCurrentSummary(); //used for 10 day forecast
     List<String> get24HourSummary();
     List<String> getDailySummary();
+
+    void getAlerts();
 
 }
