@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Ben_frontend.AlertSettingsGridController">
+    <children>
+        <TextArea prefHeight="200.0" prefWidth="450.0" text="Alerts&#10;Settings">
+            <font>
+                <Font size="54.0" />
+            </font>
+        </TextArea>
+      <GridPane layoutY="200.0" prefHeight="90.0" prefWidth="450.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="111.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.0" minWidth="10.0" prefWidth="139.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextArea prefHeight="90.0" prefWidth="240.0" text="Alert">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </TextArea>
+            <TextArea prefHeight="200.0" prefWidth="200.0" text="Active" GridPane.columnIndex="1">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </TextArea>
+            <TextArea prefHeight="200.0" prefWidth="200.0" text="High&#10;Priority" GridPane.columnIndex="2">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </TextArea>
+         </children>
+      </GridPane>
+      <GridPane layoutY="290.0" prefHeight="510.0" prefWidth="450.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="194.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.0" minWidth="10.0" prefWidth="117.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="121.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextArea prefHeight="200.0" prefWidth="200.0" text="&#10;Heavy Rain">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextArea>
+            <RadioButton fx:id="rbA1" mnemonicParsing="false" onAction="#rba1Handler" translateX="40.0" GridPane.columnIndex="1">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="rbp1" mnemonicParsing="false" onAction="#rbp1Handler" translateX="40.0" GridPane.columnIndex="2">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </RadioButton>
+            <TextArea prefHeight="200.0" prefWidth="200.0" text="&#10;Heavy Rain" GridPane.rowIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextArea>
+            <TextArea prefHeight="200.0" prefWidth="200.0" text="&#10;Heavy Rain" GridPane.rowIndex="2">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextArea>
+            <TextArea prefHeight="200.0" prefWidth="200.0" text="&#10;Heavy Rain" GridPane.rowIndex="3">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextArea>
+            <TextArea prefHeight="200.0" prefWidth="200.0" text="&#10;Heavy Rain" GridPane.rowIndex="4">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextArea>
+            <RadioButton fx:id="rbA2" mnemonicParsing="false" onAction="#rba2Handler" translateX="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="rbA3" mnemonicParsing="false" onAction="#rba3Handler" translateX="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="rbA4" mnemonicParsing="false" onAction="#rba4Handler" translateX="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="rbA5" mnemonicParsing="false" onAction="#rba5Handler" translateX="40.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="rbp2" mnemonicParsing="false" onAction="#rbp2Handler" translateX="40.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="rbp3" mnemonicParsing="false" onAction="#rbp3Handler" translateX="40.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="rbp4" mnemonicParsing="false" onAction="#rbp4Handler" translateX="40.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="rbp5" mnemonicParsing="false" onAction="#rbp5Handler" translateX="40.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </RadioButton>
+         </children>
+      </GridPane>
+    </children>
+</Pane>
