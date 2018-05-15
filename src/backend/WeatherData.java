@@ -225,6 +225,17 @@ public class WeatherData implements IWeatherData {
         return summary24h;
     }
 
+    @Override
+    public List<String> getDailySummary() {
+        List<String> res = new ArrayList<>();
+
+        for (int i=1; i <= 10; i++){
+            res.add(daily.getDay(i).getByKey("summary"));
+        }
+
+        return res;
+    }
+
 
     private WindDirection computeWindDirection(double angle) {
         if ((angle < 22.5 && angle >= 0) || (angle >= 337.5 && angle < 360))
@@ -262,10 +273,6 @@ public class WeatherData implements IWeatherData {
         return res;
     }
 
-    @Override
-    public double getCurrentHumidity() {
-        return Double.parseDouble(currently.get().getByKey("humidity"));
-    }
 
     @Override
     public List<Double> getDailyHumidity() {
@@ -278,26 +285,7 @@ public class WeatherData implements IWeatherData {
         return res;
     }
 
-    @Override
-    public String getCurrentSummary() {
-        return currently.get().getByKey("summary");
-    }
 
-    @Override
-    public List<String> get24HourSummary() {
-        return null;
-    }
-
-    @Override
-    public List<String> getDailySummary() {
-        List<String> res = new ArrayList<>();
-
-        for (int i=1; i <= 10; i++){
-            res.add(daily.getDay(i).getByKey("summary"));
-        }
-
-        return res;
-    }
 
     public static void main(String[] args) {
         WeatherData obj = new WeatherData();
