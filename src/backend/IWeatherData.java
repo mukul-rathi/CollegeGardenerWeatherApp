@@ -15,7 +15,9 @@ public interface IWeatherData {
     /*
     Getter methods
      */
-    WeatherType getWeatherType();
+    WeatherType getCurrentWeatherType();
+    List<WeatherType> get24HourWeatherType();
+    List<WeatherType> getDailyWeatherType();
 
     int getCurrentTemperature();
     List<Integer> get24HourTemperature();
@@ -31,7 +33,7 @@ public interface IWeatherData {
 
     WindDirection getCurrentWindDirection(); //returns Compass Direction of Wind
     List<WindDirection> get24HourWindDirection();
-    List<Double> getDailyWindDirection();
+    List<WindDirection> getDailyWindDirection();
 
     double getCurrentHumidity(); //returns value between 0 and 1
     List<Double> get24HourHumidity();
