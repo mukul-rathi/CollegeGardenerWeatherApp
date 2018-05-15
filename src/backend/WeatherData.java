@@ -58,10 +58,6 @@ public class WeatherData implements IWeatherData {
             fio.setUnits(ForecastIO.UNITS_CA);
     }
 
-    @Override
-    public void setTimeOfData(String time) {
-
-    }
 
     @Override
     public WeatherType getWeatherType() {
