@@ -60,7 +60,7 @@ public class Geocoder {
         String[] querySplit = address.split(regex);
 
         for (String token : querySplit){
-            query += token + " ";
+            query += token + "%20";
         }
 
         try {
