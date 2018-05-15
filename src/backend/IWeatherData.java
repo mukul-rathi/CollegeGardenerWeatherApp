@@ -7,9 +7,8 @@ public interface IWeatherData {
     /*
     Set internal state (this is done in settings of app)
      */
-    void setLocation(String location); //using String for now, until suitable input format identified
-    void setTempScale(boolean Celsius); //true if Celsius, false if Fahrenheit
-    void setSpeedScale(boolean mph); //true if miles per hour, false if km per hour
+    void setLocation(String Latitude, String Longitude); //using String for now, until suitable input format identified
+    void setScale(boolean Imperial); //true if Celsius, false if Fahrenheit
     void setTimeOfData(String time); //using String for now, until suitable input format identified
     /*
     Getter methods
