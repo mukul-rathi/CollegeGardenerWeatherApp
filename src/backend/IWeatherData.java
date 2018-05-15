@@ -1,4 +1,7 @@
 package backend;
+
+import java.util.List;
+
 /*
 This interface provides a set of methods the design team will call to set and get attributes about a particular
 weather data point.
@@ -9,18 +12,33 @@ public interface IWeatherData {
      */
     void setLocation(String Latitude, String Longitude); //using String for now, until suitable input format identified
     void setScale(boolean Imperial); //true if Celsius, false if Fahrenheit
-    void setTimeOfData(String time); //using String for now, until suitable input format identified
     /*
     Getter methods
      */
     WeatherType getWeatherType();
-    int getTemperature();
-    double getChanceOfRain(); //returns value between 0 and 1
-    double getWindSpeed();
-    WindDirection getWindDirection(); //returns Compass Direction of Wind
-    double getHumidity(); //returns value between 0 and 1
 
-    String getSummary(); //used for 10 day forecast
+    int getCurrentTemperature();
+    List<Integer> get24HourTemperature();
+    List<Integer> getDailyTemperature();
 
+    double getCurrentChanceOfRain(); //returns value between 0 and 1
+    List<Double> get24HourChanceOfRain();
+    List<Double> getDailyChanceOfRain();
+
+    double getCurrentWindSpeed(); //returns value between 0 and 1
+    List<Double> get24HourWindSpeed();
+    List<Double> getDailyWindSpeed();
+
+    WindDirection getCurrentWindDirection(); //returns Compass Direction of Wind
+    List<WindDirection> get24HourWindDirection();
+    List<Double> getDailyWindDirection();
+
+    double getCurrentHumidity(); //returns value between 0 and 1
+    List<Double> get24HourHumidity();
+    List<Double> getDailyHumidity();
+
+    String getCurrentSummary(); //used for 10 day forecast
+    List<String> get24HourSummary();
+    List<String> getDailySummary();
 
 }
