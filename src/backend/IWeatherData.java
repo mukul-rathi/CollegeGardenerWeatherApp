@@ -27,7 +27,7 @@ public interface IWeatherData {
     List<Double> get24HourChanceOfRain();
     List<Double> getDailyChanceOfRain();
 
-    double getCurrentWindSpeed(); //returns value between 0 and 1
+    double getCurrentWindSpeed();
     List<Double> get24HourWindSpeed();
     List<Double> getDailyWindSpeed();
 

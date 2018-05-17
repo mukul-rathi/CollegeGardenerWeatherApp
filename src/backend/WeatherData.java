@@ -10,12 +10,16 @@ import java.util.Map;
 public class WeatherData implements IWeatherData {
 
     // Data is initialized and fetched by the ForecastIO class
-    private static ForecastIO fio = new ForecastIO("ef9f0749b95d6503c14c61bb45e8cb41");
-    private static FIOCurrently currently; // to be instantiated
-    private static FIOHourly hourly;
-    private static FIODaily daily;
-    private static FIOAlerts alerts;
-    private static String address;
+  
+    //these are protected so that they can be accessed by the Unit Test class
+    protected static ForecastIO fio = new ForecastIO("ef9f0749b95d6503c14c61bb45e8cb41");
+    protected static FIOCurrently currently; // to be instantiated
+    protected static FIOMinutely minutely;
+    protected static FIOHourly hourly;
+    protected static FIODaily daily;
+    protected static FIOAlerts alerts;
+    protected static String address;
+
 
     public WeatherData() {
 
