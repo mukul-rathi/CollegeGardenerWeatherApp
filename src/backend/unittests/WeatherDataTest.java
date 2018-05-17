@@ -3,6 +3,7 @@ package backend.unittests;
 import org.junit.Test;
 import backend.WeatherData;
 
+import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 
 public class WeatherDataTest extends WeatherData{
@@ -24,6 +25,14 @@ public class WeatherDataTest extends WeatherData{
         assertTrue(WeatherData.hourly.hours()>=24);
     }
 
+    @Test
+    public void testWeatherAPIAccessible(){
+        assertNotNull(WeatherData.fio);
+    }
+    @Test
+    public void misSpeltGetByKey(){
+
+    }
 
 
 
