@@ -18,6 +18,11 @@ public class LanguagesController extends ControllerMaster{
 
     }
 
+    @Override
+    protected void init(SceneResource resource) {
+
+    }
+
     /*
     private void switchToSettingsScene() throws IOException{
         FXMLLoader SettingsLoader = new FXMLLoader(getClass().getResource("Settings.fxml"));

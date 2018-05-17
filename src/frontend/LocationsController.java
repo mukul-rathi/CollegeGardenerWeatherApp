@@ -26,6 +26,11 @@ public class LocationsController extends ControllerMaster{
     TextField textFieldLocation;
 
 
+    @Override
+    protected void init(SceneResource resource) {
+        //Todo does anything need to be initialised here
+    }
+
     @FXML
     private void handleButtonSetLocation() throws IOException{
 
@@ -33,8 +38,15 @@ public class LocationsController extends ControllerMaster{
          * Here I need to set the location as given
          */
 
-        switchScenes("Settings.fxml", buttonSetLocation);
+        //switchScenes("Settings.fxml", buttonSetLocation);
+
+        //setting up resource with location
+        SceneResource resource = new SceneResource();
+        resource.setLocation("anywhere else");
+
+        //passing in resource with location
+
+        switchScenesPassData("Settings.fxml", buttonSetLocation, resource);
 
     }
-
 }
