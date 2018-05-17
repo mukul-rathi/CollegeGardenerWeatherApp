@@ -145,7 +145,7 @@ public class WeatherData implements IWeatherData {
     @Override
     public int getCurrentTemperature() {
 
-        return Integer.parseInt(getCurrentData("temperature"));
+        return (int) Double.parseDouble(getCurrentData("temperature"));
 
     }
 
