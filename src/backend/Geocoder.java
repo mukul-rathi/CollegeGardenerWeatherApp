@@ -73,8 +73,6 @@ public class Geocoder {
             query += token + "%20";
         }
 
-        System.out.println(query);
-
         try {
             return coords(query);
         }
