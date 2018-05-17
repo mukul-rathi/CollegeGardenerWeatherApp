@@ -12,7 +12,6 @@ public class WeatherData implements IWeatherData {
     // Data is initialized and fetched by the ForecastIO class
     private static ForecastIO fio = new ForecastIO("ef9f0749b95d6503c14c61bb45e8cb41");
     private static FIOCurrently currently; // to be instantiated
-    private static FIOMinutely minutely;
     private static FIOHourly hourly;
     private static FIODaily daily;
     private static FIOAlerts alerts;
@@ -33,7 +32,6 @@ public class WeatherData implements IWeatherData {
     private void updateWeather(){
         setLocation(address);
         currently = new FIOCurrently(fio);
-        minutely = new FIOMinutely(fio);
         hourly = new FIOHourly(fio);
         daily = new FIODaily(fio);
 
@@ -336,25 +334,27 @@ public class WeatherData implements IWeatherData {
     }
 
     @Override
-    public void getAlerts(){
+    public String getAlerts(){
 
         alerts = new FIOAlerts(fio);
         //Check if there are alerts
         if(alerts.NumberOfAlerts() <= 0){
-            System.out.println("No alerts for this location.");
+            return "No alerts for this location.";
         }
         //if there are alerts, print them.
         else {
+            String res = "";
+
             System.out.println("Alerts");
             for(int i=0; i<alerts.NumberOfAlerts(); i++)
-                System.out.println(alerts.getAlert(i));
+                res += alerts.getAlert(i) + " ";
+
+            return res;
         }
     }
 
 
     public static void main(String[] args) {
         WeatherData obj = new WeatherData();
-        obj.setLocation("Auckland");
-        obj.getAlerts();
     }
 }
