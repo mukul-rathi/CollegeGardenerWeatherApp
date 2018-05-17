@@ -10,10 +10,18 @@ public class WeatherDataTest {
 
 
     @Test
-    public void testHumidity(){
-        assertTrue(testObj.getCurrentHumidity()>0);
-        assertTrue(testObj.getCurrentHumidity()>0);
+    public void testHumidityInRangeZeroToOne(){
+        assertTrue(testObj.getCurrentHumidity()>=0);
+        assertTrue(testObj.getCurrentHumidity()<=1);
     }
+    @Test
+    public void testChanceOfRainInRangeZeroToOne(){
+        assertTrue(testObj.getCurrentChanceOfRain()>=0);
+        assertTrue(testObj.getCurrentChanceOfRain()<=1);
+    }
+
+
+
 
 
 }
