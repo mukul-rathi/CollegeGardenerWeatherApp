@@ -27,19 +27,25 @@ public class Geocoder {
 
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
+            // if it contains this String, then the search has found at least one location corresponding to the address
             if (inputLine.contains("latLng")){
 
                 res[0] = res[1] = "";
 
                 int index = inputLine.indexOf("latLng");
+
+                // add 15 to get to the start of the number representing the latitude
                 index += 15;
 
+                // parse the number
                 while (('0' <= inputLine.charAt(index) && inputLine.charAt(index) <= '9') || inputLine.charAt(index) == '.' || inputLine.charAt(index) == '-'){
                     res[0] += inputLine.charAt(index++);
                 }
 
+                // add 7 to get to the start of the number representing the longitude
                 index += 7;
 
+                //parse the number
                 while (('0' <= inputLine.charAt(index) && inputLine.charAt(index) <= '9') || inputLine.charAt(index) == '.' || inputLine.charAt(index) == '-'){
                     res[1] += inputLine.charAt(index++);
                 }
@@ -57,9 +63,12 @@ public class Geocoder {
         String query = "http://open.mapquestapi.com/geocoding/v1/address?key=yZsrHlePEA3ystEsVq6ySkyjci2JdAAG&location=";
 
         //String regex = "\\s[,]*\\s*";
+
+        //Split the address by whitespaces
         String regex = "\\s+";
         String[] querySplit = address.split(regex);
 
+        //concatenate the link and the address to get the final URL
         for (String token : querySplit){
             query += token + "%20";
         }
