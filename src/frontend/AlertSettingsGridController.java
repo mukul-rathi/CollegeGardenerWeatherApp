@@ -1,17 +1,29 @@
 package frontend;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+
+import java.io.IOException;
 
 public class AlertSettingsGridController extends ControllerMaster{
 
     @FXML
-    protected RadioButton rbA1, rbA2, rbA3, rbA4, rbA5, rbp1, rbp2, rbp3, rbp4, rbp5;
+    private RadioButton rbA1, rbA2, rbA3, rbA4, rbA5, rbp1, rbp2, rbp3, rbp4, rbp5;
+
+    @FXML
+    private Button buttonBack;
+
+    private SceneResource sceneResource;
 
 
     @Override
     protected void init(SceneResource resource) {
+        // will need alerts info from persistent storage.
+        // for now, the back button sets up a default choice first,
+        //(everything alterable, nothing priority)
 
+        sceneResource = resource;
     }
 
     /**
@@ -72,6 +84,18 @@ public class AlertSettingsGridController extends ControllerMaster{
     @FXML
     private void rbp5Handler(){
 
+    }
+
+    @FXML
+    private void handleButtonBack() throws IOException{
+
+        if(sceneResource == null){
+            sceneResource = new SceneResource();
+        }
+
+
+
+        switchScenesPassData("MainPage.fxml", buttonBack, sceneResource);
     }
 
 }

@@ -27,18 +27,23 @@ public class SettingsController extends ControllerMaster{
     @FXML
     private TextArea textAreaLocationInfo, textAreaTemperatureInfo, textAreaWindspeedInfo, textAreaLanguageInfo;
 
-    // The string used to set the location of the object
+    // Settings fields information
+    private String userLocation;  // the location for the API
+    private boolean tempScale; // true is centigrade, false is fahrenheit
+    private boolean speedScale; // true is mph, false is kph
 
+    private static final String defaultLocation = "Cambridge";
 
     @Override
     protected void init(SceneResource resource) {
 
-        //TODO include a check to see if the location has been updated before referencing it
-        if (!resource.getLocation().equals(null)){
+        if (!(resource.getLocation() == null) && !resource.getLocation().equals("")){
             //System.out.println(resource.getLocation());
             //System.out.print(textAreaLocationInfo.getText());
-            textAreaLocationInfo.setText(resource.getLocation());
+            textAreaLocationInfo.setText("Current Location: " + resource.getLocation());
+            userLocation = resource.getLocation();
         }
+        else textAreaLocationInfo.setText("Current Location: "+ defaultLocation);
 
     }
 
@@ -47,33 +52,44 @@ public class SettingsController extends ControllerMaster{
      * Handling the buttons
      */
 
-    //Todo the back button needs to go back to the homescreen
 
-    public void handleButtonBack(){
-        /**
-         * Here we go back to the previous screen, however it is that we do this
-         */
-        //System.out.println("Back button pressed");
+    public void handleButtonBack() throws IOException{
+
+        //pass back to main page, need to pass in the location and temp and speed scales
+
+        SceneResource resource = new SceneResource();
+        if(!(userLocation == null))
+            resource.setLocation(userLocation);
+        else
+            resource.setLocation(defaultLocation);
+        resource.setSpeedScale(speedScale);
+        resource.setTempScale(tempScale);
+
+
+        System.out.println(resource.getLocation());
+        System.out.println(resource.isSpeedScale());
+        System.out.println(resource.isTempScale());
+
+        switchScenesPassData("MainPage.fxml", buttonBack, resource);
+
     }
-
-    //Todo the location change now needs to go to the API section
 
     public void handleButtonLocationChange() throws IOException{
-        /**
-         * Here we go to location screen
-         */
-        //System.out.println("Location change button pressed");
 
-        //initialises the location of the static location to cambridge for now
-        //should load from a file that stores the data
+        //Passes current location to the locations pane
+        SceneResource sceneResource = new SceneResource();
+        if(userLocation!= null){
+            sceneResource.setLocation(userLocation);
+        } else {
+            sceneResource.setLocation(defaultLocation);
+        }
 
 
-        switchScenes("LocationSettings.fxml", buttonLocationChange);
+        switchScenesPassData("LocationSettings.fxml", buttonLocationChange, sceneResource);
 
 
     }
 
-    //TODO we will not bother implementing language, but the interface is there none the less
 
     public void handleButtonLanguageChange() throws IOException{
         /**
@@ -88,7 +104,6 @@ public class SettingsController extends ControllerMaster{
      */
 
 
-    //TODO actually change the scale being used for the temperature in the API
     public void handleSliderTemperature(){
 
         //<0.5 represents centigrade, >0.5 represents fahrenheit
@@ -99,9 +114,11 @@ public class SettingsController extends ControllerMaster{
 
         if(value >= 0.5){
             textAreaTemperatureInfo.setText("Scale: Centigrade");
+            tempScale = true;
         }
         else {
             textAreaTemperatureInfo.setText("Scale: Fahrenheit");
+            tempScale = false;
         }
 
     }
@@ -116,9 +133,11 @@ public class SettingsController extends ControllerMaster{
 
         if(value >= 0.5){
             textAreaWindspeedInfo.setText("Scale: Mph");
+            speedScale = true;
         }
         else {
             textAreaWindspeedInfo.setText("Scale: Kph");
+            speedScale = false;
         }
     }
 

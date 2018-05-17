@@ -28,7 +28,10 @@ public class LocationsController extends ControllerMaster{
 
     @Override
     protected void init(SceneResource resource) {
-        //Todo does anything need to be initialised here
+
+        textAreaCurrentLocation.setText("Current Location: " + resource.getLocation());
+
+
     }
 
     @FXML
@@ -42,7 +45,11 @@ public class LocationsController extends ControllerMaster{
 
         //setting up resource with location
         SceneResource resource = new SceneResource();
-        resource.setLocation("anywhere else");
+        if(textFieldLocation.getText()!="") {
+            resource.setLocation(textFieldLocation.getText());
+        } else {
+            resource.setLocation("Cambridge");
+        }
 
         //passing in resource with location
 
