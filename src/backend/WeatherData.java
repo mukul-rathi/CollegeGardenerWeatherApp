@@ -354,9 +354,7 @@ public class WeatherData implements IWeatherData {
 
     public static void main(String[] args) {
         WeatherData obj = new WeatherData();
-
-        System.out.println(obj.getDailySummary());
-        obj.setLocation("Bucharest Romania");
-        System.out.println(obj.getDailySummary());
+        obj.setLocation("Auckland");
+        obj.getAlerts();
     }
 }
