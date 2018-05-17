@@ -1,32 +1,38 @@
-package sample;
+package frontend;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.fxml.Initializable;
 
-import java.awt.*;
+import javafx.scene.Scene;
+import java.io.IOException;
 import java.net.URL;
-import java.util.Observable;
 import java.util.ResourceBundle;
 import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.scene.layout.RowConstraints;
-import javax.management.ImmutableDescriptor;
 
 
-public class Controllerlongview implements Initializable{
+public class Controllerlongview extends ControllerMaster implements Initializable{
 
-    public void pressBack(ActionEvent event){
+    @FXML
+    private Button back_button, Alerts_Button, Setting_Button;
+    
+
+    public void pressBack(ActionEvent event) throws IOException{
         //TODO: link back to hompage
+        switchScenes("MainPage.fxml", back_button);
     }
-    public void pressSettings(ActionEvent event){
+    public void pressSettings(ActionEvent event) throws IOException{
         //TODO: link to settings
+        switchScenes("Settings.fxml", Setting_Button);
     }
-    public void pressAlerts(ActionEvent event){
+    public void pressAlerts(ActionEvent event)throws IOException {
         //TODO: link back to alerts
+        switchScenes("AlertSettings.fxml", Alerts_Button);
     }
 
     @FXML
