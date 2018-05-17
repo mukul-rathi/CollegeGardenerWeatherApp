@@ -59,11 +59,6 @@ public class WeatherData implements IWeatherData {
         return data24hr;
     }
     protected List<String> getDailyData(String str){
-
-        // the daily weather data only has temperatureHigh and temperatureLow
-        if (str.equals("temperature")){
-            str += "High";
-        }
         updateWeather();
 
         List<String> data7day = new ArrayList<String>();
@@ -122,14 +117,14 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public WeatherType getCurrentWeatherType() {
-        updateWeather();
+        
 
         return StringToWeatherType(getCurrentData("icon"));
     }
 
     @Override
     public List<WeatherType> get24HourWeatherType() {
-        updateWeather();
+        
 
         List<WeatherType> weatherType24h = new ArrayList<WeatherType>();
 
@@ -142,7 +137,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<WeatherType> getDailyWeatherType() {
-        updateWeather();
+        
 
         List<WeatherType> res = new ArrayList<>();
 
@@ -155,18 +150,19 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public int getCurrentTemperature() {
-        updateWeather();
-
-        return (int) Double.parseDouble(getCurrentData("temperature"));
+        
+    // the daily weather data only has temperatureHigh and temperatureLow
+        return (int) Double.parseDouble(getCurrentData("temperatureHigh"));
 
     }
 
     @Override
     public List<Integer> get24HourTemperature() {
-        updateWeather();
+        
 
         List<Integer> temp24h = new ArrayList<Integer>();
-        for(String hourData : getHourlyData("temperature")){
+        // the daily weather data only has temperatureHigh and temperatureLow
+        for(String hourData : getHourlyData("temperatureHigh")){
           temp24h.add((int)Double.parseDouble(hourData));
         }
         return temp24h;
@@ -174,11 +170,11 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Integer> getDailyTemperature() {
-        updateWeather();
+        
 
         List<Integer> res = new ArrayList<>();
-
-        for (String dailyData : getDailyData("temperature")){
+        // the daily weather data only has temperatureHigh and temperatureLow
+        for (String dailyData : getDailyData("temperatureHigh")){
             res.add((int)Double.parseDouble(dailyData));
         }
 
@@ -188,14 +184,14 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public double getCurrentChanceOfRain() {
-        updateWeather();
+        
 
         return Double.parseDouble(getCurrentData("precipProbability"));
     }
 
     @Override
     public List<Double> get24HourChanceOfRain() {
-        updateWeather();
+        
 
         List<Double> rain24h = new ArrayList<Double>();
         for(String hourData : getHourlyData("precipProbability")){
@@ -206,7 +202,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Double> getDailyChanceOfRain() {
-        updateWeather();
+        
 
         List<Double> res = new ArrayList<>();
 
@@ -219,7 +215,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public double getCurrentWindSpeed() {
-        updateWeather();
+        
 
         return Double.parseDouble(getCurrentData("windSpeed"));
     }
@@ -227,7 +223,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Double> get24HourWindSpeed() {
-        updateWeather();
+        
 
         List<Double> wind24h = new ArrayList<Double>();
         for(String hourData : getHourlyData("windSpeed")){
@@ -239,7 +235,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Double> getDailyWindSpeed() {
-        updateWeather();
+        
 
         List<Double> res = new ArrayList<>();
 
@@ -252,14 +248,14 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public WindDirection getCurrentWindDirection() {
-        updateWeather();
+        
 
         return computeWindDirection(Double.parseDouble(getCurrentData("windBearing"))) ;
     }
 
     @Override
     public List<WindDirection> get24HourWindDirection() {
-        updateWeather();
+        
 
         List<WindDirection> windDirection24h = new ArrayList<WindDirection>();
         for(String hourData : getHourlyData("windBearing")){
@@ -270,14 +266,14 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public double getCurrentHumidity() {
-        updateWeather();
+        
 
         return Double.parseDouble(getCurrentData("humidity"));
     }
 
     @Override
     public List<Double> get24HourHumidity() {
-        updateWeather();
+        
 
         List<Double> humidity24h = new ArrayList<Double>();
         for(String hourData : getHourlyData("humidity")){
@@ -289,21 +285,21 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public String getCurrentSummary() {
-        updateWeather();
+        
 
         return getCurrentData("summary");
     }
 
     @Override
     public List<String> get24HourSummary() {
-        updateWeather();
+        
 
         return getHourlyData("summary");
     }
 
     @Override
     public List<String> getDailySummary() {
-        updateWeather();
+        
 
         return getDailyData("summary");
     }
@@ -336,7 +332,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<WindDirection> getDailyWindDirection() {
-        updateWeather();
+        
 
         List<WindDirection> res = new ArrayList<WindDirection>();
 
@@ -350,7 +346,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Double> getDailyHumidity() {
-        updateWeather();
+        
 
         List<Double> res = new ArrayList<>();
 
@@ -363,7 +359,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public String getAlerts(){
-        updateWeather();
+        
 
         alerts = new FIOAlerts(fio);
         //Check if there are alerts
