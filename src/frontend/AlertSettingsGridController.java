@@ -9,6 +9,11 @@ public class AlertSettingsGridController extends ControllerMaster{
     protected RadioButton rbA1, rbA2, rbA3, rbA4, rbA5, rbp1, rbp2, rbp3, rbp4, rbp5;
 
 
+    @Override
+    protected void init(SceneResource resource) {
+
+    }
+
     /**
      * Handlers for the different radio buttons, this will need
      * to include how they affect the wider program
@@ -68,4 +73,5 @@ public class AlertSettingsGridController extends ControllerMaster{
     private void rbp5Handler(){
 
     }
+
 }
