@@ -1,4 +1,4 @@
-package Ben_frontend;
+package frontend;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

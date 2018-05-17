@@ -38,7 +38,7 @@ public class Main extends Application {
          */
 
 
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Gardener Weather App");
         primaryStage.setScene(new Scene(root, 450, 800));
         primaryStage.show();
 

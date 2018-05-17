@@ -1,4 +1,4 @@
-package Ben_frontend;
+package frontend;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
