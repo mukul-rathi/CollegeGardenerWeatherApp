@@ -33,13 +33,42 @@ public class WeatherData implements IWeatherData {
     }
 
 
-    private void updateWeather(){
+    protected void updateWeather(){
         setLocation(address);
         currently = new FIOCurrently(fio);
         hourly = new FIOHourly(fio);
         daily = new FIODaily(fio);
 
     }
+
+    /*
+        Separate the Data request calls from the other code
+     */
+    protected String getCurrentData(String str){
+        updateWeather();
+
+        return currently.get().getByKey(str);
+    }
+    protected List<String> getHourlyData(String str){
+        updateWeather();
+
+        List<String> data24hr = new ArrayList<String>();
+        for(int i=0; i<24;i++) {
+            data24hr.add(hourly.getHour(i).getByKey(str));
+        }
+        return data24hr;
+    }
+    protected List<String> getWeeklyData(String str){
+        updateWeather();
+
+        List<String> data7day = new ArrayList<String>();
+        for(int i=1; i<=7;i++) {
+            data7day.add(daily.getDay(i).getByKey(str));
+        }
+        return data7day;
+    }
+
+
 
     @Override
     public void setLocation(String addr) {
@@ -65,7 +94,7 @@ public class WeatherData implements IWeatherData {
     }
 
     private WeatherType StringToWeatherType(String s){
-        switch (currently.get().getByKey("icon")){
+        switch (getCurrentData("icon")){
             case "CLEAR_DAY": return WeatherType.CLEAR_DAY;
             case "CLEAR_NIGHT": return WeatherType.CLEAR_NIGHT;
             case "PARTLY_CLOUDY_DAY": return WeatherType.PARTLY_CLOUDY_DAY;
@@ -73,7 +102,7 @@ public class WeatherData implements IWeatherData {
             case "CLOUDY": return WeatherType.CLOUDY;
             case "RAIN": return WeatherType.RAIN;
             case "SLEET": return WeatherType.SLEET;
-            case "SdNOW": return WeatherType.SNOW;
+            case "SNOW": return WeatherType.SNOW;
             case "WIND": return WeatherType.WIND;
             case "FOG": return WeatherType.FOG;
         }
@@ -83,8 +112,8 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public WeatherType getCurrentWeatherType() {
-        updateWeather();
-        return StringToWeatherType(currently.get().getByKey("icon"));
+
+        return StringToWeatherType(getCurrentData("icon"));
     }
 
     @Override
@@ -93,8 +122,8 @@ public class WeatherData implements IWeatherData {
 
         List<WeatherType> weatherType24h = new ArrayList<WeatherType>();
 
-        for (int i=0; i<24; i++){
-            weatherType24h.add(StringToWeatherType(hourly.getHour(i).getByKey("icon")));
+        for (String hourData : getHourlyData("icon")){
+            weatherType24h.add(StringToWeatherType(hourData));
         }
 
         return weatherType24h;
@@ -106,8 +135,8 @@ public class WeatherData implements IWeatherData {
 
         List<WeatherType> res = new ArrayList<>();
 
-        for (int i=1; i <= 7; i++){
-            res.add(StringToWeatherType(daily.getDay(i).getByKey("icon")));
+        for (String dailyData : getWeeklyData("icon")){
+            res.add(StringToWeatherType(dailyData));
         }
 
         return res;
@@ -115,32 +144,31 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public int getCurrentTemperature() {
-        updateWeather();
 
-        return (int)Double.parseDouble(currently.get().getByKey("temperature"));
+        return (int) Double.parseDouble(getCurrentData("temperature"));
 
     }
 
     @Override
         public List<Integer> get24HourTemperature() {
-        updateWeather();
+
 
 
         List<Integer> temp24h = new ArrayList<Integer>();
-        for(int i=0; i<24; i++){
-          temp24h.add((int)Double.parseDouble(hourly.getHour(i).getByKey("temperature")));
+        for(String hourData : getHourlyData("temperature")){
+          temp24h.add((int)Double.parseDouble(hourData));
         }
         return temp24h;
     }
 
     @Override
     public List<Integer> getDailyTemperature() {
-        updateWeather();
+
 
         List<Integer> res = new ArrayList<>();
 
-        for (int i=1; i <= 7; i++){
-            res.add(Integer.parseInt(daily.getDay(i).getByKey("temperature")));
+        for (String dailyData : getWeeklyData("temperature")){
+            res.add(Integer.parseInt(dailyData));
         }
 
         return res;
@@ -149,31 +177,31 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public double getCurrentChanceOfRain() {
-        updateWeather();
 
-        return Double.parseDouble(currently.get().getByKey("precipProbability"));
+
+        return Double.parseDouble(getCurrentData("precipProbability"));
     }
 
     @Override
     public List<Double> get24HourChanceOfRain() {
-        updateWeather();
+
 
 
         List<Double> rain24h = new ArrayList<Double>();
-        for(int i=0; i<24; i++){
-            rain24h.add(Double.parseDouble(hourly.getHour(i).getByKey("precipProbability")));
+        for(String hourData : getHourlyData("precipProbability")){
+            rain24h.add(Double.parseDouble(hourData));
         }
         return rain24h;
     }
 
     @Override
     public List<Double> getDailyChanceOfRain() {
-        updateWeather();
+
 
         List<Double> res = new ArrayList<>();
 
-        for (int i=1; i <= 7; i++){
-            res.add(Double.parseDouble(daily.getDay(i).getByKey("precipProbability")));
+        for (String dailyData : getWeeklyData("precipProbability")){
+            res.add(Double.parseDouble(dailyData));
         }
 
         return res;
@@ -181,20 +209,32 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public double getCurrentWindSpeed() {
-        updateWeather();
 
-        return Double.parseDouble(currently.get().getByKey("windSpeed"));
+
+        return Double.parseDouble(getCurrentData("windSpeed"));
+    }
+
+
+    @Override
+    public List<Double> get24HourWindSpeed() {
+
+
+        List<Double> wind24h = new ArrayList<Double>();
+        for(String hourData : getHourlyData("windSpeed")){
+            wind24h.add(Double.parseDouble(hourData));
+        }
+        return wind24h;
     }
 
 
     @Override
     public List<Double> getDailyWindSpeed() {
-        updateWeather();
+
 
         List<Double> res = new ArrayList<>();
 
-        for (int i=1; i <= 7; i++){
-            res.add(Double.parseDouble(daily.getDay(i).getByKey("windSpeed")));
+        for (String dailyData : getWeeklyData("windSpeed")){
+            res.add(Double.parseDouble(dailyData));
         }
 
         return res;
@@ -202,51 +242,41 @@ public class WeatherData implements IWeatherData {
 
 
 
-    @Override
-    public List<Double> get24HourWindSpeed() {
-        updateWeather();
-
-        List<Double> wind24h = new ArrayList<Double>();
-        for(int i=0; i<24; i++){
-            wind24h.add(Double.parseDouble(hourly.getHour(i).getByKey("windSpeed")));
-        }
-        return wind24h;
-    }
 
    
 
     @Override
     public WindDirection getCurrentWindDirection() {
-        updateWeather();
 
-        return computeWindDirection(Double.parseDouble(currently.get().getByKey("windDirection"))) ;
+
+        return computeWindDirection(Double.parseDouble(getCurrentData("windDirection"))) ;
     }
 
     @Override
     public List<WindDirection> get24HourWindDirection() {
-        updateWeather();
+
 
         List<WindDirection> windDirection24h = new ArrayList<WindDirection>();
-        for(int i=0; i<24; i++){
-            windDirection24h.add(computeWindDirection(Double.parseDouble(hourly.getHour(i).getByKey("windDirection"))));
+        for(String hourData : getHourlyData("windDirection")){
+            windDirection24h.add(computeWindDirection(Double.parseDouble(hourData)));
         }
         return windDirection24h;
     }
 
     @Override
     public double getCurrentHumidity() {
-        updateWeather();
 
-        return Double.parseDouble(currently.get().getByKey("humidity"));
+
+        return Double.parseDouble(getCurrentData("humidity"));
     }
 
     @Override
     public List<Double> get24HourHumidity() {
-        updateWeather();
+
 
         List<Double> humidity24h = new ArrayList<Double>();
-        for(int i=0; i<24; i++){
-            humidity24h.add(Double.parseDouble(hourly.getHour(i).getByKey("humidity")));
+        for(String hourData : getHourlyData("humidity")){
+            humidity24h.add(Double.parseDouble(hourData));
         }
         return humidity24h;
     }
@@ -254,34 +284,20 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public String getCurrentSummary() {
-        updateWeather();
 
-        return currently.get().getByKey("summary");
+
+        return getCurrentData("summary");
     }
 
     @Override
     public List<String> get24HourSummary() {
-        updateWeather();
-
-        List<String> summary24h = new ArrayList<String>();
-        for(int i=0; i<24; i++){
-            summary24h.add(hourly.getHour(i).getByKey("summary"));
-        }
-        return summary24h;
+        return getHourlyData("summary");
     }
 
     @Override
     public List<String> getDailySummary() {
 
-        updateWeather();
-
-        List<String> res = new ArrayList<>();
-
-        for (int i=1; i <= 7; i++){
-            res.add(daily.getDay(i).getByKey("summary"));
-        }
-
-        return res;
+       return getWeeklyData("summary");
     }
 
 
@@ -312,12 +328,12 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<WindDirection> getDailyWindDirection() {
-        updateWeather();
+
 
         List<WindDirection> res = new ArrayList<WindDirection>();
 
-        for (int i=1; i <= 7; i++){
-            res.add(computeWindDirection(Double.parseDouble(daily.getDay(i).getByKey("windDirection"))));
+        for (String dailyData : getWeeklyData("windDirection")){
+            res.add(computeWindDirection(Double.parseDouble(dailyData)));
         }
 
         return res;
@@ -326,12 +342,12 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Double> getDailyHumidity() {
-        updateWeather();
+
 
         List<Double> res = new ArrayList<>();
 
-        for (int i=1; i <= 7; i++){
-            res.add(Double.parseDouble(daily.getDay(i).getByKey("humidity")));
+        for (String dailyData : getWeeklyData("humidity")){
+            res.add(Double.parseDouble(dailyData));
         }
 
         return res;
