@@ -1,4 +1,4 @@
-package Ben_frontend;
+package frontend;
 
 public class Controller {
 }

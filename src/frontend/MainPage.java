@@ -1,12 +1,20 @@
 package frontend;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
+import javafx.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -40,16 +48,29 @@ public class MainPage implements Initializable {
         }
     }
 
-    public void switchToDays() {
-        System.out.println("Days Screen");
+    @FXML
+    public void switchToDays(ActionEvent actionEvent) {
+        System.out.println("Days");
     }
 
-    public void switchToSettings() {
-        System.out.println("Settings Screen");
+    public void switchToSettings(ActionEvent actionEvent) {
+        switchScene(actionEvent, "Settings.fxml");
     }
 
-    public void switchToAlerts() {
-        System.out.println("Alert Screen");
+    public void switchToAlerts(ActionEvent actionEvent) {
+        switchScene(actionEvent, "AlertSettings.fxml");
+    }
+
+    public void switchScene(ActionEvent a, String scene) {
+        Parent days;
+        try {
+            days = FXMLLoader.load(getClass().getResource(scene));
+        } catch (IOException e) {
+            days = null;
+        }
+        Stage primary = (Stage) ((Node) a.getSource()).getScene().getWindow();
+        primary.setScene(new Scene(days, 450, 800));
+        primary.show();
     }
 
     public static ImageView buildImage(String path) {
