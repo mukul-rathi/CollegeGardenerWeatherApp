@@ -43,6 +43,6 @@ public interface IWeatherData {
     List<String> get24HourSummary();
     List<String> getDailySummary();
 
-    void getAlerts();
+    String getAlerts();
 
 }
