@@ -8,19 +8,19 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.LocationsController">
     <children>
-        <TextArea prefHeight="200.0" prefWidth="450.0" text="Location">
+        <TextArea editable="false" prefHeight="200.0" prefWidth="450.0" text="Location">
             <font>
                 <Font size="54.0" />
             </font>
         </TextArea>
-         <TextArea layoutY="200.0" prefHeight="47.0" prefWidth="450.0" text="Current location:">
+         <TextArea editable="false" layoutY="200.0" prefHeight="47.0" prefWidth="450.0" text="Current location:">
             <font>
                 <Font size="26.0" />
             </font>
         </TextArea>
       <TextField fx:id="textFieldLocation" layoutX="2.0" layoutY="393.0" prefHeight="27.0" prefWidth="445.0" promptText="location search" />
-      <TextArea fx:id="textAreaCurrentLocation" layoutX="-2.0" layoutY="276.0" prefHeight="27.0" prefWidth="450.0" text="--current location goes here --" />
-      <TextArea layoutY="317.0" prefHeight="47.0" prefWidth="450.0" text="Search for new location:">
+      <TextArea fx:id="textAreaCurrentLocation" editable="false" layoutX="-2.0" layoutY="276.0" prefHeight="27.0" prefWidth="450.0" text="--current location goes here --" />
+      <TextArea editable="false" layoutY="317.0" prefHeight="47.0" prefWidth="450.0" text="Search for new location:">
          <font>
             <Font size="26.0" />
          </font>
