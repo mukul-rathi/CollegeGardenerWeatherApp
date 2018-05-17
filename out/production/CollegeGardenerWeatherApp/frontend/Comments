@@ -1,0 +1,23 @@
+So, when creating a new scene, you need:
+
+A fxml file. This should contain all of your objects that you want it to have and the visual layout that you want
+
+For anything that needs some kind of interaction, you need an fx:id for it, which is an fxml attribute named fx:id.
+You also need to specify a controller class.
+
+Then, when you have done this, you need to create said controller class in you java code.
+Then create all of the objects you need, importing the relevant fx classes.
+Each fxml object should have the label @FXML above it and it name should be exactly its fx:id
+
+Then after you have done this, for any action methods you have, create them as private/public void methods.
+(you can create labels for these actions in scene builder - such as handleBackButton for example).
+
+Then - to switch scenes. You need to pass the scene you want to switch to into the controller class of the scene you
+want to make. This involves a new fxml loader. See the frontend code in my setupSwitches method.
+
+Then in your event handler, see the example in the settings controller class, get the current stage from your
+fxml object that has just been clicked on and set that stage to have the scene that you just passed in. Noice.
+
+
+
+alerts -- be alterted and high priority
