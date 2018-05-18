@@ -70,6 +70,7 @@ public class MainPage implements Initializable {
         }
         Stage primary = (Stage) ((Node) a.getSource()).getScene().getWindow();
         primary.setScene(new Scene(days, 450, 800));
+        System.out.println("FHEOFHNEOf");
         primary.show();
     }
 
