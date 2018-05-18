@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane id="background_pane2" alignment="center" hgap="10" stylesheets="@mystyle.css" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.Controllerlongview">
+<GridPane id="background_pane2" alignment="center" hgap="10" style="-fx-background-color: #B2DFDB;" stylesheets="@mystyle.css" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.Controllerlongview">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -23,27 +23,50 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Pane id="background_pane" prefHeight="700.0" prefWidth="450.0" style="-fx-background-image: url('sfondo4.jpg');" stylesheets="@mystyle.css" GridPane.columnIndex="1">
+      <Pane id="background_pane" prefHeight="700.0" prefWidth="450.0" style="-fx-background-color: #B2DFDB;" stylesheets="@mystyle.css" GridPane.columnIndex="1">
          <children>
-            <Button id="back_button" fx:id="back_button" layoutX="6.0" layoutY="617.0" mnemonicParsing="false" onAction="#pressBack" prefHeight="50.0" prefWidth="130.0" stylesheets="@mystyle.css" text="Back &lt;-" textAlignment="CENTER" />
-            <Button id="settings_button" fx:id="Setting_Button" layoutX="153.0" layoutY="617.0" mnemonicParsing="false" onAction="#pressSettings" prefHeight="50.0" prefWidth="130.0" stylesheets="@mystyle.css" text="Settings" />
-            <Button id="alerts_button" fx:id="Alerts_Button" layoutX="299.0" layoutY="617.0" mnemonicParsing="false" onAction="#pressAlerts" prefHeight="50.0" prefWidth="130.0" stylesheets="@mystyle.css" text="Alerts" />
-            <Text id="Title10" fill="#081beb" layoutX="35.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10 Days View" textAlignment="CENTER" wrappingWidth="380.0">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Text>
             <Pane fx:id="scrolpane10" layoutX="25.0" layoutY="51.0" prefHeight="550.0" prefWidth="400.0">
                <children>
-                  <ScrollPane fx:id="testscroll" layoutX="7.0" layoutY="23.0" prefHeight="538.0" prefWidth="373.0">
+                  <ScrollPane fx:id="testscroll" layoutX="7.0" layoutY="50.0" prefHeight="530.0" prefWidth="373.0">
                      <content>
-                        <GridPane fx:id="pane10" prefHeight="672.0" prefWidth="355.0">
+                        <GridPane fx:id="pane10" prefHeight="672.0" prefWidth="355.0" style="-fx-background-color: #B2DFDB;">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                            </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints />
+                           </rowConstraints>
                         </GridPane>
                      </content>
                   </ScrollPane>
+               </children>
+            </Pane>
+            <HBox layoutY="620.0" prefHeight="80.0" prefWidth="450.0">
+               <children>
+                  <Button fx:id="back_button" mnemonicParsing="false"  prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #009688; -fx-border-color: #bdbdbd;" text="10 Day View" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="settings_button" layoutX="150.0" mnemonicParsing="false"  prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #009688; -fx-border-color: #bdbdbd;" text="Settings" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font size="29.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="alert_button" layoutX="300.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #009688; -fx-border-color: #bdbdbd;" text="Alerts" textFill="WHITE">
+                     <font>
+                        <Font size="29.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <Pane layoutX="-10.0" layoutY="-2.0" prefHeight="97.0" prefWidth="460.0" style="-fx-background-color: #009688;">
+               <children>
+                  <Text id="Title10" fill="WHITE" layoutX="5.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10 Days View" textAlignment="CENTER" wrappingWidth="450.0">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Text>
                </children>
             </Pane>
          </children>
