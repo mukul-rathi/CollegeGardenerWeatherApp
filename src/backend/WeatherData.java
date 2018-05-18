@@ -150,9 +150,8 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public int getCurrentTemperature() {
-        
-    // the daily weather data only has temperatureHigh and temperatureLow
-        return (int) Double.parseDouble(getCurrentData("temperatureHigh"));
+
+        return (int) Double.parseDouble(getCurrentData("temperature"));
 
     }
 
@@ -161,9 +160,8 @@ public class WeatherData implements IWeatherData {
         
 
         List<Integer> temp24h = new ArrayList<Integer>();
-        // the daily weather data only has temperatureHigh and temperatureLow
-        for(String hourData : getHourlyData("temperatureHigh")){
-          temp24h.add((int)Double.parseDouble(hourData));
+        for(String hourData : getHourlyData("temperature")){
+            temp24h.add((int) Double.parseDouble(hourData));
         }
         return temp24h;
     }
@@ -172,14 +170,12 @@ public class WeatherData implements IWeatherData {
     public List<Integer> getDailyTemperature() {
         
 
-        List<Integer> res = new ArrayList<>();
-        // the daily weather data only has temperatureHigh and temperatureLow
-        for (String dailyData : getDailyData("temperatureHigh")){
-            res.add((int)Double.parseDouble(dailyData));
+        List<Integer> temp7day = new ArrayList<>();
+
+        for(String dailyData : getDailyData("temperatureHigh")){
+            temp7day.add((int) Double.parseDouble(dailyData));
         }
-
-        return res;
-
+        return temp7day;
     }
 
     @Override
