@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main2 extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -16,7 +16,7 @@ public class Main extends Application {
          * get access to the loader and can use it to load the controller.
          * This controller is needed in order to set scenes
          */
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Settings.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
         Parent root = fxmlLoader.load();
         Scene settingsScene = primaryStage.getScene();
         // The code above is loading the root scene, in this case the settings menu that I have done.
