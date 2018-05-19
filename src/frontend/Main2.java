@@ -17,6 +17,7 @@ public class Main2 extends Application {
          * This controller is needed in order to set scenes
          */
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
+
         Parent root = fxmlLoader.load();
         Scene settingsScene = primaryStage.getScene();
         // The code above is loading the root scene, in this case the settings menu that I have done.
@@ -30,7 +31,10 @@ public class Main2 extends Application {
          */
 
 
-        primaryStage.setTitle("Settings");
+
+
+        primaryStage.setTitle("Gardener Weather App");
+
         primaryStage.setScene(new Scene(root, 450, 800));
         primaryStage.show();
 

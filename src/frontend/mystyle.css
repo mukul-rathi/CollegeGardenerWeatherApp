@@ -1,25 +1,12 @@
-#background_pane{
-    -fx-background-image: url("sfondo4.png");
-}
-#background_pane2{
-    -fx-background-image: url("sfondo4.png");
-}
-
-#day1{
+#day1 {
     -fx-background-color: #c4c4c4;
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0, 0, 1);
 }
-
-
-
 
 #back_button{
-    -fx-padding: 8 15 15 15;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-    -fx-font-weight: bold;
-    -fx-font-size: 1.1em;
     -fx-background-color:
         linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
         #9d4024,
@@ -28,12 +15,9 @@
 }
 
 #back_button:hover{
-    -fx-padding: 8 15 15 15;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-    -fx-font-weight: bold;
-    -fx-font-size: 1.1em;
     -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
           #9d4024,
           #d86e3a,
@@ -41,12 +25,9 @@
 }
 
 #back_button:pressed{
-    -fx-padding: 8 15 15 15;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-    -fx-font-weight: bold;
-    -fx-font-size: 1.1em;
     -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
          #a34313,
          #a34313,

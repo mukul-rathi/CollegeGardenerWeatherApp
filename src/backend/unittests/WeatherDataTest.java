@@ -35,6 +35,30 @@ public class WeatherDataTest extends WeatherData{
     public void testWeatherAPIAccessible(){
         assertNotNull(WeatherData.fio);
     }
+
+    @Test
+    public void testFieldArrays(){
+        String[] currarr = currently.get().getFieldsArray();
+        System.out.println("Current: \n");
+        for(String str: currarr ){
+            System.out.print(str + "  ");
+        }
+
+        for(int i=0; i<hourly.hours();i++){
+            String[] hrarr = hourly.getHour(i).getFieldsArray();
+            System.out.println(" \n\n Hour " + i+ ": \n");
+            for(String str: hrarr ){
+                System.out.print(str + "  ");
+            }
+        }
+        for(int i=0; i<daily.days();i++){
+            String[] dayarr = daily.getDay(i).getFieldsArray();
+            System.out.println(" \n\n Day " + i+ ": \n");
+            for(String str: dayarr ){
+                System.out.print(str + "  ");
+            }
+        }
+    }
     @Test
     public void testNotNullChanceOfRain(){
         assertNotNull(getCurrentChanceOfRain());

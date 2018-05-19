@@ -1,5 +1,9 @@
 package frontend;
+
 import backend.WeatherType;
+
+import backend.WeatherData;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,7 +21,13 @@ import javafx.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+
 import java.util.HashMap;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import java.util.ResourceBundle;
 
 public class MainPage extends ControllerMaster implements Initializable {
@@ -42,13 +52,23 @@ public class MainPage extends ControllerMaster implements Initializable {
         Image image = new Image(file.toURI().toString());
         currentWeatherImage.setImage(image);
 
+        Date date = new Date();   // given date
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(date);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
         for (int i = 0; i < 24; i++) {
+
+            int j = (hour + i) % 24;
+
             Tab t = new Tab();
-            t.setGraphic(buildImage("src/frontend/icons/weatoher-clear.png"));
-            if (i < 10) {
-                t.setText("0" + i + ":00");
+
+            t.setGraphic(buildImage("src/frontend/icons/weather-clear.png"));
+            if (j < 10) {
+                t.setText("0" + j + ":00");
+
             } else {
-                t.setText(i+":00");
+                t.setText(j+":00");
             }
             VBox v = new VBox();
 
@@ -82,11 +102,12 @@ public class MainPage extends ControllerMaster implements Initializable {
     @Override
     protected void init_alerts(SceneResource resource) {
 
+
     }
 
     @FXML
     public void switchToDays(ActionEvent actionEvent) {
-        System.out.println("Days");
+        switchScene(actionEvent, "longview.fxml");
     }
 
     public void switchToSettings(ActionEvent actionEvent) {
@@ -106,6 +127,7 @@ public class MainPage extends ControllerMaster implements Initializable {
         }
         Stage primary = (Stage) ((Node) a.getSource()).getScene().getWindow();
         primary.setScene(new Scene(days, 450, 800));
+        System.out.println("FHEOFHNEOf");
         primary.show();
     }
 
