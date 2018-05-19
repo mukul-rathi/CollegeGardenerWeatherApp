@@ -25,6 +25,7 @@ public class Controllerlongview extends ControllerMaster implements Initializabl
     @Override
     protected void init(SceneResource resource) {
     }
+
     @FXML
     private Button back_button,Setting_Button, Alerts_Button;
 

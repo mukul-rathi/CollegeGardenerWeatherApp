@@ -28,10 +28,6 @@ public class AlertSettingsGridController extends ControllerMaster{
         sceneResource = resource;
     }
 
-    @Override
-    protected void init_alerts(SceneResource resource) {
-
-    }
 
     /**
      * Handlers for the different radio buttons, this will need
