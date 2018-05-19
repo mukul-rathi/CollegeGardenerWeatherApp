@@ -16,7 +16,7 @@ public class Main2 extends Application {
          * get access to the loader and can use it to load the controller.
          * This controller is needed in order to set scenes
          */
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("longview.fxml"));
         Parent root = fxmlLoader.load();
         Scene settingsScene = primaryStage.getScene();
         // The code above is loading the root scene, in this case the settings menu that I have done.

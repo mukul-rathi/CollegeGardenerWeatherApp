@@ -66,12 +66,13 @@ public class Controllerlongview extends ControllerMaster implements Initializabl
             //current weather
             WeatherType weather=weatherType7days.get(i);
             //create a new image icon based on real weather
+            System.out.println(weather);
             ImageView imageView2=new ImageView(WeatherType.geticon(weather)) ;
 
             //set it to dimention 100x100(if possible to do so without deforming it)
             imageView2.setPreserveRatio(true);
-            imageView2.setFitHeight(100);
-            imageView2.setFitWidth(100);
+            imageView2.setFitHeight(90);
+            imageView2.setFitWidth(90);
 
             //create text box containing the temperature
             Text temperature=new Text(temperature7days.get(i).toString()+"°");
@@ -80,8 +81,8 @@ public class Controllerlongview extends ControllerMaster implements Initializabl
             //create text box containing chance of raining
             Text chanceOfRain=new Text("Chance of rain: " + percentuageRain.toString()+"%");
             //set font, size... for the two text boxes
-            chanceOfRain.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-            temperature.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 24));
+            chanceOfRain.setFont(Font.font("roboto",  FontPosture.REGULAR, 16));
+            temperature.setFont(Font.font("roboto",  FontPosture.REGULAR, 20));
             //position the temperature
             temperature.setTranslateX(100);
             temperature.setTranslateY(30);
