@@ -1,4 +1,5 @@
 package frontend;
+import backend.WeatherType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,9 +17,10 @@ import javafx.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class MainPage implements Initializable {
+public class MainPage extends ControllerMaster implements Initializable {
 
     public TabPane tabs;
     public Button daysButton;
@@ -26,6 +28,13 @@ public class MainPage implements Initializable {
     public Button alertButton;
     public ImageView currentWeatherImage;
     public Text currentTemperature;
+    private HashMap<WeatherType, Boolean> altertable;
+    private HashMap<WeatherType, Boolean> priority;
+
+    // attributes from settings page
+    private String userLocation;  // the location for the API
+    private boolean tempScale; // true is centigrade, false is fahrenheit
+    private boolean speedScale; // true is mph, false is kph
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,7 +44,7 @@ public class MainPage implements Initializable {
 
         for (int i = 0; i < 24; i++) {
             Tab t = new Tab();
-            t.setGraphic(buildImage("src/frontend/icons/weather-clear.png"));
+            t.setGraphic(buildImage("src/frontend/icons/weatoher-clear.png"));
             if (i < 10) {
                 t.setText("0" + i + ":00");
             } else {
@@ -46,6 +55,33 @@ public class MainPage implements Initializable {
             t.setContent(v);
             tabs.getTabs().add(t);
         }
+
+        //settings parameters setup
+        userLocation = "Cambridge";
+        tempScale = speedScale = true;
+
+    }
+
+    // From settings pane
+    @Override
+    protected void init(SceneResource resource) {
+
+        if (!resource.isAlertsTab()){
+            userLocation = resource.getLocation();
+            tempScale = resource.isTempScale();
+            tempScale = resource.isSpeedScale();
+        } else {
+            altertable = resource.getAlertable();
+            priority = resource.getPriority();
+        }
+
+
+
+    }
+
+    @Override
+    protected void init_alerts(SceneResource resource) {
+
     }
 
     @FXML

@@ -1,10 +1,12 @@
 package frontend;
 
+import backend.WeatherType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class AlertSettingsGridController extends ControllerMaster{
 
@@ -24,6 +26,11 @@ public class AlertSettingsGridController extends ControllerMaster{
         //(everything alterable, nothing priority)
 
         sceneResource = resource;
+    }
+
+    @Override
+    protected void init_alerts(SceneResource resource) {
+
     }
 
     /**
@@ -92,6 +99,26 @@ public class AlertSettingsGridController extends ControllerMaster{
         if(sceneResource == null){
             sceneResource = new SceneResource();
         }
+
+        //get the state of all the alerts and pass it back
+
+        HashMap<WeatherType, Boolean> alertableSelection = new HashMap<>();
+        HashMap<WeatherType, Boolean> prioritySelection = new HashMap<>();
+
+        final RadioButton[] allButtonsAlertable = new RadioButton[]{rbA1, rbA2, rbA3, rbA4, rbA5};
+        final RadioButton[] allButtonsPriority = new RadioButton[]{rbp1, rbp2, rbp3, rbp4, rbp5};
+        final WeatherType[] alertTypes = new WeatherType[]{WeatherType.RAIN, WeatherType.SLEET, WeatherType.SNOW,
+                WeatherType.WIND, WeatherType.FOG};
+
+        for(int i = 0; i < allButtonsAlertable.length; i++){
+            alertableSelection.put(alertTypes[i], allButtonsAlertable[i].isSelected());
+            prioritySelection.put(alertTypes[i], allButtonsPriority[i].isSelected());
+        }
+
+        sceneResource.setAlertable(alertableSelection);
+        sceneResource.setPriority(prioritySelection);
+        sceneResource.setAlertsTab(true);
+
 
 
 
