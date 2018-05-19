@@ -22,7 +22,7 @@ public enum WeatherType {
                 file = new File("src/frontend/icons/weather-few-clouds.png");
                 break;
             case PARTLY_CLOUDY_NIGHT:
-                file = new File("src/frontend/icons/weather-clouds-few-night.png");
+                file = new File("src/frontend/icons/weather-few-clouds-night.png");
                 break;
             case CLOUDY:
                 file = new File("src/frontend/icons/weather-clouds.png");

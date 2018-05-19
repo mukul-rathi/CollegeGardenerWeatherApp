@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -25,8 +26,8 @@ public class SettingsController extends ControllerMaster{
     private Slider sliderTemperature, sliderWindspeed;
 
     @FXML
-    private TextArea textAreaLocationInfo, textAreaTemperatureInfo, textAreaWindspeedInfo, textAreaLanguageInfo;
-
+    private Text textAreaTemperatureInfo, textAreaWindspeedInfo, textAreaLocationInfo, textAreaLanguageInfo;
+    
     // Settings fields information
     private String userLocation;  // the location for the API
     private boolean tempScale; // true is centigrade, false is fahrenheit
