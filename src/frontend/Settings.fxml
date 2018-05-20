@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<ScrollPane minHeight="800.0" minWidth="450.0" style="-fx-background-color: #B2DFDB;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.SettingsController">
+<ScrollPane minHeight="800.0" minWidth="450.0" style="-fx-background-color: #B2DFDB;" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.SettingsController">
    <content>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="450.0" style="-fx-background-color: #B2DFDB;">
          <children>
@@ -42,7 +38,7 @@
                               <Font size="30.0" />
                            </font>
                         </Text>
-                        <Text fx:id="textAreaLoactionInfo" fill="#757575" layoutX="20.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Loaction: Cambridge">
+                        <Text fx:id="textAreaLocationInfo" fill="#757575" layoutX="20.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Loaction: Cambridge">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -56,17 +52,17 @@
                               <Font size="30.0" />
                            </font>
                         </Text>
-                        <Text fx:id="textAreaTemperatureInfo" fill="#757575" layoutX="20.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Scale: Celcius">
+                        <Text fx:id="textAreaTemperatureInfo" fill="#757575" layoutX="20.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scale: Celcius">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Line endX="200.0" layoutX="225.0" startX="-200.0" stroke="#bdbdbd" />
+                        <Line endX="200.0" layoutX="110.0" startX="-100.0" stroke="#bdbdbd" />
                      </children>
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #B2DFDB;" GridPane.rowIndex="2">
                      <children>
-                        <Text fx:id="textAreaWindspeedInfo" fill="#757575" layoutX="20.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Scale: MPH">
+                        <Text fx:id="textAreaWindspeedInfo" fill="#757575" layoutX="20.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scale: Mph">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -76,7 +72,7 @@
                               <Font size="30.0" />
                            </font>
                         </Text>
-                        <Line endX="200.0" layoutX="225.0" startX="-200.0" stroke="#bdbdbd" />
+                        <Line endX="200.0" layoutX="110.0" startX="-100.0" stroke="#bdbdbd" />
                      </children>
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #B2DFDB;" GridPane.rowIndex="3">
@@ -91,7 +87,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Line endX="200.0" layoutX="225.0" startX="-200.0" stroke="#bdbdbd" />
+                        <Line endX="200.0" layoutX="110.0" startX="-100.0" stroke="#bdbdbd" />
                      </children>
                   </Pane>
                </children>
