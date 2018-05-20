@@ -1,9 +1,12 @@
 package frontend;
 
+import frontend.storage.ResourcesStorage;
+import frontend.storage.StorageHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -20,7 +23,7 @@ public class LocationsController extends ControllerMaster{
     Button buttonSetLocation;
 
     @FXML
-    TextArea textAreaCurrentLocation;
+    Text textAreaCurrentLocation;
 
     @FXML
     TextField textFieldLocation;
@@ -41,19 +44,35 @@ public class LocationsController extends ControllerMaster{
          * Here I need to set the location as given
          */
 
-        //switchScenes("Settings.fxml", buttonSetLocation);
+        writeLocationToStorage();
 
-        //setting up resource with location
-        SceneResource resource = new SceneResource();
-        if(textFieldLocation.getText()!="") {
-            resource.setLocation(textFieldLocation.getText());
-        } else {
-            resource.setLocation("Cambridge");
-        }
-
-        //passing in resource with location
-
-        switchScenesPassData("Settings.fxml", buttonSetLocation, resource);
+        switchScenes("Settings.fxml", buttonSetLocation);
 
     }
+
+    private void writeLocationToStorage(){
+
+        //THis is the default way for writing to storage:
+        // Make a handler to load the storage
+        // Then load the storage
+        // Set the parameter that you want
+        // Write to storage, passing the storage object to the handler
+
+        // Getting handler
+        StorageHandler handler = new StorageHandler();
+        ResourcesStorage storage = handler.returnStorage();
+
+        // Validating user input
+        if(textFieldLocation.getText()!="") {
+            storage.setUserLocation(textFieldLocation.getText());
+        } else {
+            storage.setUserLocation("Cambridge");
+        }
+
+        // Writing to storage
+        storage.setUserLocation(textFieldLocation.getText());
+        handler.writeToStorage(storage);
+
+    }
+
 }

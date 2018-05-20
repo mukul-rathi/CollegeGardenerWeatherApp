@@ -3,6 +3,8 @@ package frontend;
 import backend.WeatherType;
 import backend.WeatherData;
 import backend.WindDirection;
+import frontend.storage.ResourcesStorage;
+import frontend.storage.StorageHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,6 +31,7 @@ import java.net.URL;
 
 import java.util.*;
 
+import static jdk.nashorn.internal.objects.NativeMath.round;
 import static oracle.jrockit.jfr.events.Bits.intValue;
 
 public class MainPage extends ControllerMaster implements Initializable {
@@ -42,23 +45,35 @@ public class MainPage extends ControllerMaster implements Initializable {
     private HashMap<WeatherType, Boolean> altertable;
     private HashMap<WeatherType, Boolean> priority;
 
+    // The handler for the persistent storage
+    private StorageHandler storageHandler;
+    private ResourcesStorage storageResources;
+
     // attributes from settings page
     private String userLocation;  // the location for the API
     private boolean tempScale; // true is centigrade, false is fahrenheit
     private boolean speedScale; // true is mph, false is kph
+    String sScale;  // the string that represents either mph or kph - setup in initialize
+    Double factor; // the value that represents the factor to convert mph to kph - setup in initialize
+    String tScale;  // the string that represents either celsius or fahrenheit - setup in initialize
+    Double tFactor; // the value that represents the factor to convert oC to oF - setup in initialize
+    Double tDifference; // the value that represents the scalar addition needed to convert oC to OF
+                        // setup in initialize
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        //THIS is where user settings are loaded, see method below
+        setupUserSettings();
+
         WeatherData w = new WeatherData();
+        w.setLocation(userLocation);
         Date date = new Date();   // given date
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(date);
         // current hour
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
-        // settings parameters setup
-        userLocation = "Cambridge";
-        tempScale = speedScale = true;
 
         // get the weather info for the next 24 hours
         List<WeatherType> hourlyWeather = w.get24HourWeatherType();
@@ -107,10 +122,22 @@ public class MainPage extends ControllerMaster implements Initializable {
             timePlace.setX(130);
             timePlace.setY(50);
 
+            //depending on users choice, set temperature scale
+            if(tempScale) {
+                tScale = "°C";
+                tFactor = 1.0;
+                tDifference = 0.0;
+            }
+            else {
+                tScale = "°F";
+                tFactor = 1.8;
+                tDifference = 32.0;
+            }
+
             // temperature
             Text loc = new Text();
             loc.setFill(new Color(0.45, 0.45, 0.45, 1));
-            loc.setText(Integer.toString(hourlyTemp.get(i)) + "°");
+            loc.setText(Double.toString(hourlyTemp.get(i)*tFactor+tDifference) + tScale);
             loc.setFont(new Font(48));
             loc.setX(130);
             loc.setY(105);
@@ -131,10 +158,21 @@ public class MainPage extends ControllerMaster implements Initializable {
             humidity.setX(25);
             humidity.setY(170);
 
+            //depending on users choice, set speed scale
+            if(speedScale) {
+                sScale = "mph ";
+                factor = 1.0;
+            }
+            else {
+                sScale = "kph ";
+                factor = 1.60934;
+            }
+
             // wind speed and direction
             Text wind = new Text();
             wind.setFill(new Color(0.45, 0.45, 0.45, 1));
-            wind.setText("Wind: " + Double.toString(hourlySpeed.get(i)) + "mph " + hourlyDirection.get(i).toString());
+            wind.setText("Wind: " + round(Double.toString(hourlySpeed.get(i)*factor), 2) +
+                    sScale + hourlyDirection.get(i).toString());
             wind.setFont(new Font(20));
             wind.setX(25);
             wind.setY(200);
@@ -165,9 +203,41 @@ public class MainPage extends ControllerMaster implements Initializable {
         currentTemperature.setText(Integer.toString(w.getCurrentTemperature()) + "°");
     }
 
+    private void setupUserSettings(){
+
+        /**
+         * loading in the persistent storage from memory
+         *
+         */
+
+        storageHandler = new StorageHandler();
+        storageResources = storageHandler.returnStorage();
+
+        try{
+
+            userLocation = storageResources.getUserLocation();
+            tempScale = storageResources.isTempScale();
+            speedScale = storageResources.isSpeedScale();
+
+        } catch (NullPointerException e){
+            //in this case, defaults are set
+
+            //
+            // settings parameters setup
+            userLocation = "Cambridge";
+            tempScale = speedScale = true;
+        }
+
+
+    }
+
+
     // From settings pane
     @Override
     protected void init(SceneResource resource) {
+
+        /*
+        System.out.println("init");
 
         if (!resource.isAlertsTab()){
             userLocation = resource.getLocation();
@@ -177,6 +247,7 @@ public class MainPage extends ControllerMaster implements Initializable {
             altertable = resource.getAlertable();
             priority = resource.getPriority();
         }
+        */
 
 
 

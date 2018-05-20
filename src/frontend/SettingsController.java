@@ -1,14 +1,19 @@
 package frontend;
 
+import frontend.storage.ResourcesStorage;
+import frontend.storage.StorageHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SettingsController extends ControllerMaster{
+public class SettingsController extends ControllerMaster implements Initializable{
 
     /**
      * Use the @FXML label to link objects in code to fxml objects
@@ -58,35 +63,22 @@ public class SettingsController extends ControllerMaster{
 
         //pass back to main page, need to pass in the location and temp and speed scales
 
-        SceneResource resource = new SceneResource();
-        if(!(userLocation == null))
-            resource.setLocation(userLocation);
-        else
-            resource.setLocation(defaultLocation);
-        resource.setSpeedScale(speedScale);
-        resource.setTempScale(tempScale);
+        // At this point, the slider values need to be updated when they pass back
+        storeSliderValues();
 
 
-        System.out.println(resource.getLocation());
-        System.out.println(resource.isSpeedScale());
-        System.out.println(resource.isTempScale());
-
-        switchScenesPassData("MainPage.fxml", buttonBack, resource);
+        //Switch scenes
+        switchScenes("MainPage.fxml", buttonBack);
 
     }
 
     public void handleButtonLocationChange() throws IOException{
 
-        //Passes current location to the locations pane
-        SceneResource sceneResource = new SceneResource();
-        if(userLocation!= null){
-            sceneResource.setLocation(userLocation);
-        } else {
-            sceneResource.setLocation(defaultLocation);
-        }
+        // At this point, the slider values need to be updated
+        storeSliderValues();
 
-
-        switchScenesPassData("LocationSettings.fxml", buttonLocationChange, sceneResource);
+        //Switches to locations tab
+        switchScenes("LocationSettings.fxml", buttonLocationChange);
 
 
     }
@@ -96,6 +88,10 @@ public class SettingsController extends ControllerMaster{
         /**
          * Here we go back to the language screen
          */
+
+        // At this point, the slider values need to be updated when they pass back
+        storeSliderValues();
+
         switchScenes("LanguageSettings.fxml", buttonLanguageChange);
     }
 
@@ -114,7 +110,7 @@ public class SettingsController extends ControllerMaster{
         //System.out.print(value);
 
         if(value >= 0.5){
-            textAreaTemperatureInfo.setText("Scale: Centigrade");
+            textAreaTemperatureInfo.setText("Scale: Celsius");
             tempScale = true;
         }
         else {
@@ -142,4 +138,53 @@ public class SettingsController extends ControllerMaster{
         }
     }
 
+    public void storeSliderValues(){
+
+        //loads the data form the file
+        StorageHandler handler = new StorageHandler();
+        ResourcesStorage resourcesStorage = handler.returnStorage();
+
+        //updates the storage object
+        resourcesStorage.setSpeedScale(speedScale);
+        resourcesStorage.setTempScale(tempScale);
+
+        //writes the storage to the file
+        handler.writeToStorage(resourcesStorage);
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        StorageHandler handler = new StorageHandler();
+        ResourcesStorage userResources = handler.returnStorage();
+
+        //Setup location
+        textAreaLocationInfo.setText(userResources.getUserLocation());
+
+        //Setup temperature settings
+        // true is celsius
+        if(userResources.isTempScale()){
+            textAreaTemperatureInfo.setText("Scale: Celsius");
+            sliderTemperature.setValue(0);
+        } else {
+            textAreaTemperatureInfo.setText("Scale: Fahrenheit");
+            sliderTemperature.setValue(1);
+        }
+
+
+        //Setup wind-speed settings
+        // true is Mph
+        if(userResources.isSpeedScale()){
+            textAreaWindspeedInfo.setText("Scale: Mph");
+            sliderWindspeed.setValue(0);
+        } else {
+            textAreaWindspeedInfo.setText("Scale: Kph");
+            sliderWindspeed.setValue(1);
+        }
+
+        //Setup Language
+        textAreaLanguageInfo.setText(userResources.getLanguage());
+
+    }
 }

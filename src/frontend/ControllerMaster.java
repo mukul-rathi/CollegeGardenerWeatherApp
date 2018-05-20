@@ -1,14 +1,18 @@
 package frontend;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-public abstract class ControllerMaster {
+public abstract class ControllerMaster{
 
     /**
      *
@@ -35,7 +39,6 @@ public abstract class ControllerMaster {
 
     protected void switchScenesPassData(String location, Button buttonBack, SceneResource resource) throws IOException {
 
-        //First get a loader
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(location));
         Parent nextPane = loader.load();
@@ -50,6 +53,7 @@ public abstract class ControllerMaster {
         primaryStage.setScene(nextScene);
 
     }
+
 
 
     protected abstract void init(SceneResource resource);
