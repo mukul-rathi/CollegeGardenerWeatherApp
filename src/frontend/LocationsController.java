@@ -3,14 +3,17 @@ package frontend;
 import frontend.storage.ResourcesStorage;
 import frontend.storage.StorageHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LocationsController extends ControllerMaster{
+public class LocationsController extends ControllerMaster implements Initializable{
 
     /**
      * These are the three objects that require editing
@@ -75,4 +78,10 @@ public class LocationsController extends ControllerMaster{
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        StorageHandler hander = new StorageHandler();
+        ResourcesStorage userResources = hander.returnStorage();
+        textAreaCurrentLocation.setText(userResources.getUserLocation());
+    }
 }

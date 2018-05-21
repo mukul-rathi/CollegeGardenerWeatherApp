@@ -16,18 +16,26 @@ public class StorageHandler {
         StorageHandler storageHandler = new StorageHandler();
         ResourcesStorage storage = storageHandler.returnStorage();
 
-        //test, should read out Cambridge
+        //test, should read out Cambridge, false, false if no file is present at start
         System.out.println(storage.getUserLocation());
+        System.out.println(storage.getPriority()[0]);
+        System.out.println(storage.getPriority()[1]);
 
         storage.setUserLocation("London");
+        boolean[] priority = storage.getPriority();
+        priority[0] = false;
+        priority[1] = true;
+        storage.setPriority(priority);
 
         StorageCreation storageCreator = new StorageCreation();
         storageCreator.writeToStorage(storage);
 
         ResourcesStorage storage2 = storageHandler.returnStorage();
 
-        //test, should read out Cambridge
+        //test, should read out London, false, true
         System.out.println(storage2.getUserLocation());
+        System.out.println(storage.getPriority()[0]);
+        System.out.println(storage.getPriority()[1]);
     }
 
     public ResourcesStorage returnStorage(){

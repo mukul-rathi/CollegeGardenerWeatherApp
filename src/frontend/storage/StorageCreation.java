@@ -1,6 +1,10 @@
 package frontend.storage;
 
+import backend.WeatherType;
+import frontend.AlertsContext;
+
 import java.io.File;
+import java.util.HashMap;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -47,6 +51,8 @@ public class StorageCreation {
         resources.setTempScale(true);
         resources.setSpeedScale(true);
         resources.setLanguage("English");
+        resources.setAlertable(new boolean[5]);
+        resources.setPriority(new boolean[5]);
 
         try {
 
@@ -88,5 +94,6 @@ public class StorageCreation {
         }
 
     }
+
 
 }

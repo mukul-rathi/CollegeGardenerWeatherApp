@@ -1,7 +1,8 @@
 package frontend;
 import backend.WeatherData;
 import backend.WeatherType;
-import backend.WindDirection;
+import frontend.storage.ResourcesStorage;
+import frontend.storage.StorageHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -14,16 +15,22 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
-import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 
 
 public class Controllerlongview extends ControllerMaster implements Initializable{ //
 
+    // user location setting, so that the 7 day view represents the correct location
+    private String userLocation;
+    String tScale;  // the string that represents either celsius or fahrenheit - setup in initialize
+    Double tFactor; // the value that represents the factor to convert oC to oF - setup in initialize
+    Double tDifference; // the value that represents the scalar addition needed to convert oC to OF
+    // setup in initialize
+
     @Override
     protected void init(SceneResource resource) {
+
     }
 
     @FXML
@@ -55,9 +62,12 @@ public class Controllerlongview extends ControllerMaster implements Initializabl
         pane10.setGridLinesVisible(true);
         pane10.setLayoutY(130*7);
 
+        //getting user data loaded
+        setupUserData();
 
         //all the data relevant that will be shown in the 7 days view
         WeatherData weatherData=new WeatherData();
+        weatherData.setLocation(userLocation);
         List<WeatherType> weatherType7days=weatherData.getDailyWeatherType();
         List<Integer> temperature7days=weatherData.getDailyTemperature();
         List<Double> chanceOfRain7days=weatherData.getDailyChanceOfRain();
@@ -76,7 +86,8 @@ public class Controllerlongview extends ControllerMaster implements Initializabl
             imageView2.setFitWidth(90);
 
             //create text box containing the temperature
-            Text temperature=new Text(temperature7days.get(i).toString()+"°");
+            // loc.setText(Double.toString(temperature7days.get(i)*tFactor+tDifference) + tScale);
+            Text temperature=new Text(Math.round(100.0*(temperature7days.get(i)*tFactor+tDifference))/100.0 + tScale);
             //convert the chance of rain to percentuage
             Integer percentuageRain= (int)(chanceOfRain7days.get(i)*100);
             //create text box containing chance of raining
@@ -103,6 +114,39 @@ public class Controllerlongview extends ControllerMaster implements Initializabl
             pane10.addRow(i,pane);
         }
 
+    }
+
+    private void setupUserData(){
+        StorageHandler handler = new StorageHandler();
+        ResourcesStorage storage = handler.returnStorage();
+        userLocation = storage.getUserLocation();
+
+        boolean tempScale = storage.isTempScale();
+
+        //depending on users choice, set temperature scale
+        if(tempScale) {
+            tScale = "°C";
+            tFactor = 1.0;
+            tDifference = 0.0;
+        }
+        else {
+            tScale = "°F";
+            tFactor = 1.8;
+            tDifference = 32.0;
+        }
+
+        /*
+        //Speed scale not needed in this view
+        //depending on users choice, set speed scale
+        if(speedScale) {
+            sScale = "mph ";
+            factor = 1.0;
+        }
+        else {
+            sScale = "kph ";
+            factor = 1.60934;
+        }
+        */
     }
 
 }

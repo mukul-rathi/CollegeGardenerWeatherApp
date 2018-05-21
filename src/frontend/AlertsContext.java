@@ -15,4 +15,12 @@ public class AlertsContext {
         this.priority = priority;
     }
 
+    public HashMap<WeatherType, Boolean> getAltertable() {
+        return altertable;
+    }
+
+    public HashMap<WeatherType, Boolean> getPriority() {
+        return priority;
+    }
+
 }

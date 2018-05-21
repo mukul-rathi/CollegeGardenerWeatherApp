@@ -12,7 +12,8 @@ public class WeatherData implements IWeatherData {
     // Data is initialized and fetched by the ForecastIO class
   
     //these are protected so that they can be accessed by the Unit Test class
-    protected static ForecastIO fio = new ForecastIO("ef9f0749b95d6503c14c61bb45e8cb41");
+    //protected static ForecastIO fio = new ForecastIO("ef9f0749b95d6503c14c61bb45e8cb41");
+    protected static ForecastIO fio = new ForecastIO("796023b547a71e8f7cd533ecaf5a284d");
     protected static FIOCurrently currently; // to be instantiated
     protected static FIOMinutely minutely;
     protected static FIOHourly hourly;

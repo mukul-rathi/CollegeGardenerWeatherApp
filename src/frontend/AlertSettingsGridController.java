@@ -1,14 +1,19 @@
 package frontend;
 
 import backend.WeatherType;
+import frontend.storage.ResourcesStorage;
+import frontend.storage.StorageHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
-public class AlertSettingsGridController extends ControllerMaster{
+public class AlertSettingsGridController extends ControllerMaster implements Initializable{
 
     @FXML
     private RadioButton rbA1, rbA2, rbA3, rbA4, rbA5, rbp1, rbp2, rbp3, rbp4, rbp5;
@@ -16,16 +21,12 @@ public class AlertSettingsGridController extends ControllerMaster{
     @FXML
     private Button buttonBack;
 
-    private SceneResource sceneResource;
-
 
     @Override
     protected void init(SceneResource resource) {
         // will need alerts info from persistent storage.
         // for now, the back button sets up a default choice first,
         //(everything alterable, nothing priority)
-
-        sceneResource = resource;
     }
 
 
@@ -92,12 +93,9 @@ public class AlertSettingsGridController extends ControllerMaster{
     @FXML
     private void handleButtonBack() throws IOException{
 
-        if(sceneResource == null){
-            sceneResource = new SceneResource();
-        }
+        //get the state of all the alerts and save it to persistent data
 
-        //get the state of all the alerts and pass it back
-
+        // Getting all of the data from the radio buttons
         HashMap<WeatherType, Boolean> alertableSelection = new HashMap<>();
         HashMap<WeatherType, Boolean> prioritySelection = new HashMap<>();
 
@@ -111,14 +109,37 @@ public class AlertSettingsGridController extends ControllerMaster{
             prioritySelection.put(alertTypes[i], allButtonsPriority[i].isSelected());
         }
 
-        sceneResource.setAlertable(alertableSelection);
-        sceneResource.setPriority(prioritySelection);
-        sceneResource.setAlertsTab(true);
+        AlertsContext alerts = new AlertsContext(alertableSelection, prioritySelection);
 
+        //Writing that data to memory
+        StorageHandler handler = new StorageHandler(); // setup handler
+        ResourcesStorage storage = handler.returnStorage(); // read
+        storage.setAlerts(alerts); // edit
+        handler.writeToStorage(storage);  // write
 
-
-
-        switchScenesPassData("MainPage.fxml", buttonBack, sceneResource);
+        switchScenes("MainPage.fxml", buttonBack);
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        //reading the data from storage
+        StorageHandler handler = new StorageHandler(); // setup Handler
+        ResourcesStorage storage = handler.returnStorage(); // read
+        boolean[] alertable = storage.getAlertable();
+        boolean[] priority = storage.getPriority();
+
+        //lists of the radio buttons
+        final RadioButton[] allButtonsAlertable = new RadioButton[]{rbA1, rbA2, rbA3, rbA4, rbA5};
+        final RadioButton[] allButtonsPriority = new RadioButton[]{rbp1, rbp2, rbp3, rbp4, rbp5};
+
+        //setting up the radio buttons with the users preference
+        for(int i = 0; i < allButtonsAlertable.length; i++){
+            if(alertable[i])
+                allButtonsAlertable[i].fire();
+            if(priority[i])
+                allButtonsPriority[i].fire();
+        }
+
+    }
 }

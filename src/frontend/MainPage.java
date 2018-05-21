@@ -31,7 +31,6 @@ import java.net.URL;
 
 import java.util.*;
 
-import static jdk.nashorn.internal.objects.NativeMath.round;
 import static oracle.jrockit.jfr.events.Bits.intValue;
 
 public class MainPage extends ControllerMaster implements Initializable {
@@ -53,11 +52,11 @@ public class MainPage extends ControllerMaster implements Initializable {
     private String userLocation;  // the location for the API
     private boolean tempScale; // true is centigrade, false is fahrenheit
     private boolean speedScale; // true is mph, false is kph
-    String sScale;  // the string that represents either mph or kph - setup in initialize
-    Double factor; // the value that represents the factor to convert mph to kph - setup in initialize
-    String tScale;  // the string that represents either celsius or fahrenheit - setup in initialize
-    Double tFactor; // the value that represents the factor to convert oC to oF - setup in initialize
-    Double tDifference; // the value that represents the scalar addition needed to convert oC to OF
+    private String sScale;  // the string that represents either mph or kph - setup in initialize
+    private Double factor; // the value that represents the factor to convert mph to kph - setup in initialize
+    private String tScale;  // the string that represents either celsius or fahrenheit - setup in initialize
+    private Double tFactor; // the value that represents the factor to convert oC to oF - setup in initialize
+    private Double tDifference; // the value that represents the scalar addition needed to convert oC to OF
                         // setup in initialize
 
     @Override
@@ -137,7 +136,7 @@ public class MainPage extends ControllerMaster implements Initializable {
             // temperature
             Text loc = new Text();
             loc.setFill(new Color(0.45, 0.45, 0.45, 1));
-            loc.setText(Double.toString(hourlyTemp.get(i)*tFactor+tDifference) + tScale);
+            loc.setText(Math.round(100.0*(hourlyTemp.get(i)*tFactor+tDifference))/100.0 + tScale);
             loc.setFont(new Font(48));
             loc.setX(130);
             loc.setY(105);
@@ -171,7 +170,7 @@ public class MainPage extends ControllerMaster implements Initializable {
             // wind speed and direction
             Text wind = new Text();
             wind.setFill(new Color(0.45, 0.45, 0.45, 1));
-            wind.setText("Wind: " + round(Double.toString(hourlySpeed.get(i)*factor), 2) +
+            wind.setText("Wind: " + Math.round(100.0*hourlySpeed.get(i)*factor)/100.0 +
                     sScale + hourlyDirection.get(i).toString());
             wind.setFont(new Font(20));
             wind.setX(25);
@@ -200,8 +199,9 @@ public class MainPage extends ControllerMaster implements Initializable {
 
         // current weather
         currentWeatherImage.setImage(WeatherType.geticon(w.getCurrentWeatherType()));
-        currentTemperature.setText(Integer.toString(w.getCurrentTemperature()) + "°");
+        currentTemperature.setText(Math.round(w.getCurrentTemperature()*tFactor+tDifference) + tScale);
     }
+
 
     private void setupUserSettings(){
 
