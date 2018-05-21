@@ -24,7 +24,7 @@ public abstract class ControllerMaster{
     protected void switchScenes(String location, Button buttonBack) throws IOException {
         FXMLLoader SceneLoader = new FXMLLoader(getClass().getResource(location));
         Parent nextPane = SceneLoader.load();
-        Scene nextScene = new Scene(nextPane, 450, 800);
+        Scene nextScene = new Scene(nextPane, 450, 700);
 
 
         Stage primaryStage = (Stage)buttonBack.getScene().getWindow();
@@ -46,7 +46,7 @@ public abstract class ControllerMaster{
         ControllerMaster controller = loader.getController();
         controller.init(resource);
 
-        Scene nextScene = new Scene(nextPane, 450, 800);
+        Scene nextScene = new Scene(nextPane, 450, 700);
 
 
         Stage primaryStage = (Stage)buttonBack.getScene().getWindow();

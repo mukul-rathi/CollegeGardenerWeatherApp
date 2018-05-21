@@ -22,7 +22,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
+import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
@@ -36,11 +36,14 @@ import static oracle.jrockit.jfr.events.Bits.intValue;
 public class MainPage extends ControllerMaster implements Initializable {
 
     public TabPane tabs;
+    public ImageView alertImage;
     public Button daysButton;
     public Button settingsButton;
     public Button alertButton;
     public ImageView currentWeatherImage, raindropImage;
     public Text currentTemperature, rainChance;
+    @FXML
+    private GridPane allertsGrid;
     private HashMap<WeatherType, Boolean> altertable;
     private HashMap<WeatherType, Boolean> priority;
 
@@ -57,7 +60,7 @@ public class MainPage extends ControllerMaster implements Initializable {
     private String tScale;  // the string that represents either celsius or fahrenheit - setup in initialize
     private Double tFactor; // the value that represents the factor to convert oC to oF - setup in initialize
     private Double tDifference; // the value that represents the scalar addition needed to convert oC to OF
-                        // setup in initialize
+    // setup in initialize
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -82,6 +85,46 @@ public class MainPage extends ControllerMaster implements Initializable {
         List<WindDirection> hourlyDirection = w.get24HourWindDirection();
         List<Double> hourlySpeed = w.get24HourWindSpeed();
         List<String> hourlySummary = w.get24HourSummary();
+
+        //gridpane settings
+        allertsGrid.setVgap(2);
+        allertsGrid.setGridLinesVisible(true);
+        //get the allerts from WeatherData
+        String alert=w.getAlerts();
+        //if there is no alert for the location
+        if(alert.equals("No alerts for this location.")){
+            //get the green image of the danger signal
+            File file = new File("src/frontend/icons/alert_green.png");
+            Image image=new Image(file.toURI().toString());
+            //put image signal on the screen
+            alertImage.setImage(image);
+            //write that there are no alert
+            Label label=new Label(alert);
+            label.setMaxWidth(100);
+            //wrap test allows new line when line is full
+            label.setWrapText(true);
+            allertsGrid.addRow(0,label);
+        }
+        else{//if there at least one alert for the location
+            //get the red image of the danger signal
+            File file = new File("src/frontend/icons/alert_orange.png");
+            Image image=new Image(file.toURI().toString());
+            //put image signal on the screen
+            alertImage.setImage(image);
+            //split the alert on ',', according tho the getAlerts method in weatherData
+            String[] alerts = alert.split(",");
+            //put every alert on a box in a grid
+            for(int i=0;i<alerts.length;i++){
+                System.out.println(alerts[i]);
+                Label label=new Label(alerts[i]);
+                label.setWrapText(true);
+                //wrap test allows new line when line is full
+                label.setMaxWidth(100);
+                allertsGrid.addRow(i,label);
+            }
+
+        }
+
 
         // create the tabs for each hour
         for (int i = 0; i < 24; i++) {
