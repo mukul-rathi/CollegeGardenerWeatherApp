@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -9,43 +10,42 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
-
 <?import javafx.scene.shape.Line?>
-<ScrollPane minHeight="800.0" minWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.LocationsController">
+
+<ScrollPane hbarPolicy="NEVER" minHeight="800.0" minWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.LocationsController">
     <content>
         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="450.0" style="-fx-background-color: #B2DFDB;">
-        <children>
-            <Pane prefHeight="200.0" prefWidth="450.0" style="-fx-background-color: #009688;">
-                <children>
-                    <Text fill="WHITE" layoutX="20.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
-                        <font>
-                            <Font size="72.0" />
-                        </font>
-                    </Text>
-                </children>
-            </Pane>
-            <Text fill="#757575" layoutX="20.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Location">
-                <font>
-                    <Font size="30.0" />
-                </font>
-            </Text>
+            <children>
+                <Pane prefHeight="200.0" prefWidth="450.0" style="-fx-background-color: #009688;">
+                    <children>
+                        <Text fill="WHITE" layoutX="20.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+                            <font>
+                                <Font size="72.0" />
+                            </font>
+                        </Text>
+                    </children>
+                </Pane>
+                <Text fill="#757575" layoutX="20.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Location">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Text>
                 <TextField fx:id="textFieldLocation" layoutX="20.0" layoutY="393.0" prefHeight="27.0" prefWidth="415.0" promptText="location search" />
 
-            <Text fx:id="textAreaCurrentLocation" fill="#757575" layoutX="20.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Location: Cambridge">
-                <font>
-                    <Font size="18.0" />
-                </font>
-            </Text>
+                <Text fx:id="textAreaCurrentLocation" fill="#757575" layoutX="20.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Location: Cambridge">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Text>
 
-            <Text fill="#757575" layoutX="20.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search for new Location">
-                <font>
-                    <Font size="30.0" />
-                </font>
-            </Text>
+                <Text fill="#757575" layoutX="20.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search for new Location">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Text>
 
-            <Line endX="200.0" layoutX="220.0" startX="-200.0" startY="270" endY="270" stroke="#bdbdbd" />
-            <Line endX="200.0" layoutX="220.0" startX="-200.0" startY="320" endY="320" stroke="#bdbdbd" />
+                <Line endX="200.0" endY="270" layoutX="220.0" startX="-200.0" startY="270" stroke="#bdbdbd" />
+                <Line endX="200.0" endY="320" layoutX="220.0" startX="-200.0" startY="320" stroke="#bdbdbd" />
 
                 <Button fx:id="buttonSetLocation" layoutX="138.0" layoutY="454.0" mnemonicParsing="false" onAction="#handleButtonSetLocation" text="Set Location">
                     <font>
