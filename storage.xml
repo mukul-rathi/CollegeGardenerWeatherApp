@@ -11,7 +11,7 @@
     <priority>false</priority>
     <priority>false</priority>
     <priority>false</priority>
-    <speedScale>false</speedScale>
-    <tempScale>true</tempScale>
+    <speedScale>true</speedScale>
+    <tempScale>false</tempScale>
     <userLocation>London</userLocation>
 </resourcesStorage>
