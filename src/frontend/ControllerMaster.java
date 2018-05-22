@@ -56,6 +56,7 @@ public abstract class ControllerMaster{
         height-=100;
         height=Math.min(height, 800);
 
+        
         Scene nextScene = new Scene(nextPane, 450, height);
 
 
