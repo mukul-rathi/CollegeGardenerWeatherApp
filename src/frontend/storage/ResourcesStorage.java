@@ -18,8 +18,8 @@ public class ResourcesStorage {
     private boolean tempScale; // true is centigrade, false is fahrenheit
     private boolean speedScale; // true is mph, false is kph
     private String language; // the language the user wants
-    private boolean[] alertable;
-    private boolean[] priority;
+    private boolean[] alertable=new boolean[5];
+    private boolean[] priority=new boolean[5];
 
     // Weather type used for alerts
     final WeatherType[] alertTypes = new WeatherType[]{WeatherType.RAIN, WeatherType.SLEET, WeatherType.SNOW,

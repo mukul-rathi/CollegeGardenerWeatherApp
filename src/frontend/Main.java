@@ -31,7 +31,7 @@ public class Main extends Application {
 
 
         primaryStage.setTitle("Settings");
-        primaryStage.setScene(new Scene(root, 450, 800));
+        primaryStage.setScene(new Scene(root, 450, 700));
         primaryStage.show();
 
     }

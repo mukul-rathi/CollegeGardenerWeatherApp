@@ -1,16 +1,19 @@
 package backend;
 
 import com.github.dvdme.ForecastIOLib.*;
+import frontend.storage.ResourcesStorage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import frontend.AlertsContext;
+import frontend.storage.StorageHandler;
 
 public class WeatherData implements IWeatherData {
 
     // Data is initialized and fetched by the ForecastIO class
-  
+
     //these are protected so that they can be accessed by the Unit Test class
     //protected static ForecastIO fio = new ForecastIO("ef9f0749b95d6503c14c61bb45e8cb41");
     protected static ForecastIO fio = new ForecastIO("796023b547a71e8f7cd533ecaf5a284d");
@@ -118,14 +121,14 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public WeatherType getCurrentWeatherType() {
-        
+
 
         return StringToWeatherType(getCurrentData("icon"));
     }
 
     @Override
     public List<WeatherType> get24HourWeatherType() {
-        
+
 
         List<WeatherType> weatherType24h = new ArrayList<WeatherType>();
 
@@ -138,7 +141,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<WeatherType> getDailyWeatherType() {
-        
+
 
         List<WeatherType> res = new ArrayList<>();
 
@@ -158,7 +161,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Integer> get24HourTemperature() {
-        
+
 
         List<Integer> temp24h = new ArrayList<Integer>();
         for(String hourData : getHourlyData("temperature")){
@@ -169,7 +172,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Integer> getDailyTemperature() {
-        
+
 
         List<Integer> temp7day = new ArrayList<>();
 
@@ -181,14 +184,14 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public double getCurrentChanceOfRain() {
-        
+
 
         return Double.parseDouble(getCurrentData("precipProbability"));
     }
 
     @Override
     public List<Double> get24HourChanceOfRain() {
-        
+
 
         List<Double> rain24h = new ArrayList<Double>();
         for(String hourData : getHourlyData("precipProbability")){
@@ -199,7 +202,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Double> getDailyChanceOfRain() {
-        
+
 
         List<Double> res = new ArrayList<>();
 
@@ -212,7 +215,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public double getCurrentWindSpeed() {
-        
+
 
         return Double.parseDouble(getCurrentData("windSpeed"));
     }
@@ -220,7 +223,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Double> get24HourWindSpeed() {
-        
+
 
         List<Double> wind24h = new ArrayList<Double>();
         for(String hourData : getHourlyData("windSpeed")){
@@ -232,7 +235,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Double> getDailyWindSpeed() {
-        
+
 
         List<Double> res = new ArrayList<>();
 
@@ -245,14 +248,14 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public WindDirection getCurrentWindDirection() {
-        
+
 
         return computeWindDirection(Double.parseDouble(getCurrentData("windBearing"))) ;
     }
 
     @Override
     public List<WindDirection> get24HourWindDirection() {
-        
+
 
         List<WindDirection> windDirection24h = new ArrayList<WindDirection>();
         for(String hourData : getHourlyData("windBearing")){
@@ -263,14 +266,14 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public double getCurrentHumidity() {
-        
+
 
         return Double.parseDouble(getCurrentData("humidity"));
     }
 
     @Override
     public List<Double> get24HourHumidity() {
-        
+
 
         List<Double> humidity24h = new ArrayList<Double>();
         for(String hourData : getHourlyData("humidity")){
@@ -282,21 +285,21 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public String getCurrentSummary() {
-        
+
 
         return getCurrentData("summary");
     }
 
     @Override
     public List<String> get24HourSummary() {
-        
+
 
         return getHourlyData("summary");
     }
 
     @Override
     public List<String> getDailySummary() {
-        
+
 
         return getDailyData("summary");
     }
@@ -329,7 +332,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<WindDirection> getDailyWindDirection() {
-        
+
 
         List<WindDirection> res = new ArrayList<WindDirection>();
 
@@ -343,7 +346,7 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public List<Double> getDailyHumidity() {
-        
+
 
         List<Double> res = new ArrayList<>();
 
@@ -356,23 +359,78 @@ public class WeatherData implements IWeatherData {
 
     @Override
     public String getAlerts(){
-        
 
-        alerts = new FIOAlerts(fio);
-        //Check if there are alerts
-        if(alerts.NumberOfAlerts() <= 0){
-            return "No alerts for this location.";
+        //read the weather in the next 24h, if there will be an alertable weather signal it
+        List<WeatherType> weather24=this.get24HourWeatherType();
+
+        StorageHandler handler = new StorageHandler(); // setup Handler
+        ResourcesStorage storage = handler.returnStorage(); // read
+        //weather type for wich we may want an alert
+        WeatherType[] alertTypes = new WeatherType[]{WeatherType.RAIN, WeatherType.SLEET, WeatherType.SNOW,
+                WeatherType.WIND, WeatherType.FOG};
+        //alertable and priority for every weather type in alertTypes, set by user
+        boolean[] alertable = storage.getAlertable();
+        boolean[] priority = storage.getPriority();
+
+        //if in the next 24h there will be one of that event put an alert
+        int numberOfAlerts=0;
+        //string representing the alerts concatenate with a comma
+        String res = "";
+        //iterate over weather types to see if there will be a corespondence in the next 24h
+        for(int i=0;i<alertable.length;i++){
+            for(WeatherType weather: weather24)
+            {
+                if((alertable[i] || priority[i]) && alertTypes[i]==weather){
+                    res += WeatherType.converttoString(alertTypes[i]) + ",";
+                    numberOfAlerts++;
+                    break;
+                }
+            }
         }
-        //if there are alerts, print them.
-        else {
-            String res = "";
 
-            for(int i=0; i<alerts.NumberOfAlerts(); i++)
-                res += alerts.getAlert(i) + " ";
-
+        //if there is no alert return message, otherwise return string containing alert(s)
+        if(numberOfAlerts == 0){
+            return "No alerts for this location.";
+        }else {
             return res;
         }
     }
+
+    public boolean getPriority(){
+
+        //read the weather in the next 24h, if there will be an alertable weather signal it
+        List<WeatherType> weather24=this.get24HourWeatherType();
+
+        StorageHandler handler = new StorageHandler(); // setup Handler
+        ResourcesStorage storage = handler.returnStorage(); // read
+        //weather type for wich we may want an alert
+        WeatherType[] alertTypes = new WeatherType[]{WeatherType.RAIN, WeatherType.SLEET, WeatherType.SNOW,
+                WeatherType.WIND, WeatherType.FOG};
+        //alertable and priority for every weather type in alertTypes, set by user
+        boolean[] alertable = storage.getAlertable();
+        boolean[] priority = storage.getPriority();
+
+        //if in the next 24h there will be one of that event put an alert
+        int numberOfPriority=0;
+
+        //iterate over weather types to see if there will be a corespondence in the next 24h
+        for(int i=0;i<alertable.length;i++){
+            for(WeatherType weather: weather24)
+            {
+                if(priority[i] && alertTypes[i]==weather){
+                    numberOfPriority++;
+                    break;
+                }
+            }
+        }
+        //if there is no alert with priority return false, otherwise return true
+        if(numberOfPriority == 0){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
 
 
     public static void main(String[] args) {

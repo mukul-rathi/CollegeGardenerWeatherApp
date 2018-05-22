@@ -86,11 +86,16 @@ public class MainPage extends ControllerMaster implements Initializable {
         List<Double> hourlySpeed = w.get24HourWindSpeed();
         List<String> hourlySummary = w.get24HourSummary();
 
+
+
         //gridpane settings
         allertsGrid.setVgap(2);
         allertsGrid.setGridLinesVisible(true);
         //get the allerts from WeatherData
         String alert=w.getAlerts();
+        //get if there is a priority
+        boolean priority=w.getPriority();
+
         //if there is no alert for the location
         if(alert.equals("No alerts for this location.")){
             //get the green image of the danger signal
@@ -107,7 +112,10 @@ public class MainPage extends ControllerMaster implements Initializable {
         }
         else{//if there at least one alert for the location
             //get the red image of the danger signal
-            File file = new File("src/frontend/icons/alert_orange.png");
+            File file;
+            //if there is a priority event put allert red, otherwise put alert yellow
+            if(priority) {file = new File("src/frontend/icons/alert_orange.png");}
+            else{file = new File("src/frontend/icons/alert_yellow.png");}
             Image image=new Image(file.toURI().toString());
             //put image signal on the screen
             alertImage.setImage(image);
@@ -323,7 +331,7 @@ public class MainPage extends ControllerMaster implements Initializable {
             days = null;
         }
         Stage primary = (Stage) ((Node) a.getSource()).getScene().getWindow();
-        primary.setScene(new Scene(days, 450, 800));
+        primary.setScene(new Scene(days, 450, 700));
         primary.show();
     }
 
