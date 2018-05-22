@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
@@ -24,8 +25,12 @@ public abstract class ControllerMaster{
     protected void switchScenes(String location, Button buttonBack) throws IOException {
         FXMLLoader SceneLoader = new FXMLLoader(getClass().getResource(location));
         Parent nextPane = SceneLoader.load();
-        Scene nextScene = new Scene(nextPane, 450, 700);
-
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth();
+        int height = (int)screenSize.getHeight();
+        height-=100;
+        Scene nextScene = new Scene(nextPane, 450, height);
+        height=Math.min(height, 800);
 
         Stage primaryStage = (Stage)buttonBack.getScene().getWindow();
         primaryStage.setScene(nextScene);
@@ -45,8 +50,13 @@ public abstract class ControllerMaster{
 
         ControllerMaster controller = loader.getController();
         controller.init(resource);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth();
+        int height = (int)screenSize.getHeight();
+        height-=100;
+        height=Math.min(height, 800);
 
-        Scene nextScene = new Scene(nextPane, 450, 700);
+        Scene nextScene = new Scene(nextPane, 450, height);
 
 
         Stage primaryStage = (Stage)buttonBack.getScene().getWindow();

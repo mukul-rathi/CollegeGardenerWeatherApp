@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 public class Main2 extends Application {
 
     @Override
@@ -33,7 +35,13 @@ public class Main2 extends Application {
 
         primaryStage.setTitle("Gardener Weather App");
 
-        primaryStage.setScene(new Scene(root, 450, 700));
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth();
+        int height = (int)screenSize.getHeight();
+        height-=100;
+        height=Math.min(height, 800);
+
+        primaryStage.setScene(new Scene(root, 450, height));
         primaryStage.show();
 
     }
