@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="CollegeGardenerWeatherApp">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ForecastIOLib-1.5.3-SNAPSHOT-jar-with-dependencies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/junit-4.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/minimal-json-0.9.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
