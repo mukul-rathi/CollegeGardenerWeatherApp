@@ -323,6 +323,7 @@ public class MainPage extends ControllerMaster implements Initializable {
         switchScene(actionEvent, "AlertSettings.fxml");
     }
 
+    // generic switch to scene for this class
     public void switchScene(ActionEvent a, String scene) {
         Parent days;
         try {
@@ -339,6 +340,7 @@ public class MainPage extends ControllerMaster implements Initializable {
     public static ImageView buildImage(Image i) {
         ImageView imageView = new ImageView();
 
+        // manipulate image before putting it in viewing frame
         imageView.setFitHeight(32);
         imageView.setFitWidth(32);
         imageView.setImage(i);
