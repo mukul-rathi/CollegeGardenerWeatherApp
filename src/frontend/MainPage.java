@@ -31,7 +31,6 @@ import java.net.URL;
 
 import java.util.*;
 
-import static oracle.jrockit.jfr.events.Bits.intValue;
 
 public class MainPage extends ControllerMaster implements Initializable {
 
@@ -246,7 +245,7 @@ public class MainPage extends ControllerMaster implements Initializable {
         Image i  = new Image(file.toURI().toString());
         raindropImage.setY(10);
         raindropImage.setImage(i);
-        rainChance.setText(Integer.toString(intValue(w.getCurrentChanceOfRain())) + "%");
+        rainChance.setText((int) (100* w.getCurrentChanceOfRain()) + "%");
 
         // current weather
         currentWeatherImage.setImage(WeatherType.geticon(w.getCurrentWeatherType()));
