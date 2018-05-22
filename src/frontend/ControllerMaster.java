@@ -30,8 +30,9 @@ public abstract class ControllerMaster{
         double width = screenSize.getWidth();
         int height = (int)screenSize.getHeight();
         height-=100;
-        Scene nextScene = new Scene(nextPane, 450, height);
         height=Math.min(height, 800);
+        Scene nextScene = new Scene(nextPane, 450, height);
+
 
         Stage primaryStage = (Stage)buttonBack.getScene().getWindow();
         primaryStage.setScene(nextScene);
