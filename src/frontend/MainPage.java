@@ -331,7 +331,7 @@ public class MainPage extends ControllerMaster implements Initializable {
             days = null;
         }
         Stage primary = (Stage) ((Node) a.getSource()).getScene().getWindow();
-        primary.setScene(new Scene(days, 450, 800));
+        primary.setScene(new Scene(days, 450, 700));
         primary.show();
     }
 
