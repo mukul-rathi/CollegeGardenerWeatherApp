@@ -45,6 +45,31 @@ public enum WeatherType {
         }
         //build image relative to current weather and return it
         return new Image(file.toURI().toString());
+    }
 
+    public static String converttoString(WeatherType weather) {
+        switch(weather){
+            case CLEAR_DAY:
+                return "Clear day";
+            case CLEAR_NIGHT:
+                return "Clear night";
+            case PARTLY_CLOUDY_DAY:
+                return "Partly cloudy day";
+            case PARTLY_CLOUDY_NIGHT:
+                return "Partly cloudy night";
+            case CLOUDY:
+                return "Cloudy";
+            case RAIN:
+                return "Rain";
+            case SLEET:
+                return "Sleet";
+            case SNOW:
+                return "Snow";
+            case WIND:
+                return "Wind";
+            case FOG:
+                return "Fog";
+        }
+        return "Not valid";
     }
 }

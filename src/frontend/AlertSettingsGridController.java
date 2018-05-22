@@ -135,7 +135,7 @@ public class AlertSettingsGridController extends ControllerMaster implements Ini
 
         //setting up the radio buttons with the users preference
         for(int i = 0; i < allButtonsAlertable.length; i++){
-            if(alertable[i])
+            if(alertable[i] || priority[i])
                 allButtonsAlertable[i].fire();
             if(priority[i])
                 allButtonsPriority[i].fire();
