@@ -19,9 +19,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import java.awt.Dimension;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import java.awt.Toolkit;
 import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import java.io.File;
@@ -330,8 +332,15 @@ public class MainPage extends ControllerMaster implements Initializable {
         } catch (IOException e) {
             days = null;
         }
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth();
+        int height = (int)screenSize.getHeight();
+        height-=100;
+        height=Math.min(height, 800);
+
         Stage primary = (Stage) ((Node) a.getSource()).getScene().getWindow();
-        primary.setScene(new Scene(days, 450, 700));
+        primary.setScene(new Scene(days, 450, height));
         primary.show();
     }
 
@@ -346,3 +355,13 @@ public class MainPage extends ControllerMaster implements Initializable {
         return imageView;
     }
 }
+
+
+
+
+
+
+
+
+
+
