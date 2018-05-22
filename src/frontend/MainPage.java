@@ -33,7 +33,6 @@ import java.net.URL;
 
 import java.util.*;
 
-import static oracle.jrockit.jfr.events.Bits.intValue;
 
 public class MainPage extends ControllerMaster implements Initializable {
 
@@ -248,7 +247,7 @@ public class MainPage extends ControllerMaster implements Initializable {
         Image i  = new Image(file.toURI().toString());
         raindropImage.setY(10);
         raindropImage.setImage(i);
-        rainChance.setText(Integer.toString(intValue(w.getCurrentChanceOfRain())) + "%");
+        rainChance.setText((int) (100* w.getCurrentChanceOfRain()) + "%");
 
         // current weather
         currentWeatherImage.setImage(WeatherType.geticon(w.getCurrentWeatherType()));
@@ -325,6 +324,7 @@ public class MainPage extends ControllerMaster implements Initializable {
         switchScene(actionEvent, "AlertSettings.fxml");
     }
 
+    // generic switch to scene for this class
     public void switchScene(ActionEvent a, String scene) {
         Parent days;
         try {
@@ -348,6 +348,7 @@ public class MainPage extends ControllerMaster implements Initializable {
     public static ImageView buildImage(Image i) {
         ImageView imageView = new ImageView();
 
+        // manipulate image before putting it in viewing frame
         imageView.setFitHeight(32);
         imageView.setFitWidth(32);
         imageView.setImage(i);

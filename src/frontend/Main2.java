@@ -42,6 +42,7 @@ public class Main2 extends Application {
         height=Math.min(height, 800);
 
         primaryStage.setScene(new Scene(root, 450, height));
+
         primaryStage.show();
 
     }
