@@ -9,15 +9,15 @@ import javafx.scene.image.ImageView;
 import javafx.fxml.Initializable;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
-
+import java.text.SimpleDateFormat;
 
 public class Controllerlongview extends ControllerMaster implements Initializable{ //
 
@@ -73,12 +73,26 @@ public class Controllerlongview extends ControllerMaster implements Initializabl
         List<Double> chanceOfRain7days=weatherData.getDailyChanceOfRain();
 
 
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+
+        date.add(Calendar.DATE  , 1);
+
+
+
+
         for (int i = 0; i < 7; i++) {
             //current weather
             WeatherType weather=weatherType7days.get(i);
             //create a new image icon based on real weather
             System.out.println(weather);
             ImageView imageView2=new ImageView(WeatherType.geticon(weather)) ;
+
+            //current data
+            String currentData=format.format(date.getTime()).toString();
+            //add 1 so that you can use it for the next day
+            date.add(Calendar.DATE  , 1);
 
             //set it to dimention 100x100(if possible to do so without deforming it)
             imageView2.setPreserveRatio(true);
@@ -92,15 +106,23 @@ public class Controllerlongview extends ControllerMaster implements Initializabl
             Integer percentuageRain= (int)(chanceOfRain7days.get(i)*100);
             //create text box containing chance of raining
             Text chanceOfRain=new Text("Chance of rain: " + percentuageRain.toString()+"%");
+            //create text box containing chance of raining
+            Text dayOfWeek=new Text(currentData);
+
             //set font, size... for the two text boxes
             chanceOfRain.setFont(Font.font("roboto",  FontPosture.REGULAR, 16));
             temperature.setFont(Font.font("roboto",  FontPosture.REGULAR, 20));
+            dayOfWeek.setFont(Font.font("roboto",  FontPosture.REGULAR, 20));
             //position the temperature
             temperature.setTranslateX(100);
             temperature.setTranslateY(30);
             //position the chance of Rain
             chanceOfRain.setTranslateX(100);
             chanceOfRain.setTranslateY(50);
+
+            //position the date
+            dayOfWeek.setTranslateX(300);
+            dayOfWeek.setTranslateY(30);
 
             //create a pane to insert into the grid
             Pane pane=new Pane();
@@ -109,6 +131,7 @@ public class Controllerlongview extends ControllerMaster implements Initializabl
             pane.getChildren().add(imageView2);
             pane.getChildren().add(chanceOfRain);
             pane.getChildren().add(temperature);
+            pane.getChildren().add(dayOfWeek);
 
             //add the pane to a grid
             pane10.addRow(i,pane);
@@ -135,18 +158,6 @@ public class Controllerlongview extends ControllerMaster implements Initializabl
             tDifference = 32.0;
         }
 
-        /*
-        //Speed scale not needed in this view
-        //depending on users choice, set speed scale
-        if(speedScale) {
-            sScale = "mph ";
-            factor = 1.0;
-        }
-        else {
-            sScale = "kph ";
-            factor = 1.60934;
-        }
-        */
     }
 
 }
