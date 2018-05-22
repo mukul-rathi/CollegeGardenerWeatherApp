@@ -8,3 +8,6 @@ The following dependencies in the dependencies folder are for Java 10 users (not
   jaxb-api-2.3.0.jar	
   jaxb-core-2.3.0.jar	
   jaxb-impl-2.3.0.jar
+
+
+To run as a single Jar - see the CollegeGardenerWeatherApp_jar folder.
