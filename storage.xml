@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<resourcesStorage id="0">
+    <alertable>true</alertable>
+    <alertable>true</alertable>
+    <alertable>true</alertable>
+    <alertable>true</alertable>
+    <alertable>true</alertable>
+    <language>English</language>
+    <priority>false</priority>
+    <priority>false</priority>
+    <priority>false</priority>
+    <priority>false</priority>
+    <priority>false</priority>
+    <speedScale>false</speedScale>
+    <tempScale>true</tempScale>
+    <userLocation>London</userLocation>
+</resourcesStorage>
