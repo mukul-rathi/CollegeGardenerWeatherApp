@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CollegeGardenerWeatherApp:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CollegeGardenerWeatherApp_jar</output-path>
+    <root id="archive" name="CollegeGardenerWeatherApp.jar">
+      <element id="module-output" name="CollegeGardenerWeatherApp" />
+      <element id="library" level="project" name="CollegeGardenerWeatherApp" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/dependencies/javax.activation-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/dependencies/jaxb-api-2.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/dependencies/jaxb-core-2.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/dependencies/jaxb-impl-2.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/dependencies/junit-4.12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/dependencies/minimal-json-0.9.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/dependencies/ForecastIOLib-1.5.3-SNAPSHOT-jar-with-dependencies.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
