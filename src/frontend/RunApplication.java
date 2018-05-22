@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 
-public class Main extends Application {
+public class RunApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -18,7 +18,8 @@ public class Main extends Application {
          * get access to the loader and can use it to load the controller.
          * This controller is needed in order to set scenes
          */
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Settings.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
+
         Parent root = fxmlLoader.load();
         Scene settingsScene = primaryStage.getScene();
         // The code above is loading the root scene, in this case the settings menu that I have done.
@@ -32,13 +33,16 @@ public class Main extends Application {
          */
 
 
-        primaryStage.setTitle("Settings");
+        primaryStage.setTitle("Gardener Weather App");
+
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double width = screenSize.getWidth();
         int height = (int)screenSize.getHeight();
         height-=100;
         height=Math.min(height, 800);
+
         primaryStage.setScene(new Scene(root, 450, height));
+
         primaryStage.show();
 
     }
