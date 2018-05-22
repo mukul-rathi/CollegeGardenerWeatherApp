@@ -23,14 +23,16 @@ public abstract class ControllerMaster{
      * @throws IOException
      */
     protected void switchScenes(String location, Button buttonBack) throws IOException {
+        // Creates an FXML loader from the file given, then sets the scene
         FXMLLoader SceneLoader = new FXMLLoader(getClass().getResource(location));
         Parent nextPane = SceneLoader.load();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double width = screenSize.getWidth();
         int height = (int)screenSize.getHeight();
         height-=100;
-        Scene nextScene = new Scene(nextPane, 450, height);
         height=Math.min(height, 800);
+        Scene nextScene = new Scene(nextPane, 450, height);
+
 
         Stage primaryStage = (Stage)buttonBack.getScene().getWindow();
         primaryStage.setScene(nextScene);
@@ -43,7 +45,6 @@ public abstract class ControllerMaster{
      */
 
     protected void switchScenesPassData(String location, Button buttonBack, SceneResource resource) throws IOException {
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(location));
         Parent nextPane = loader.load();
